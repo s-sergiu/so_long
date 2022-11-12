@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 06:57:33 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/11 00:21:41 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/12 05:47:07 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,52 +18,6 @@ void	error_handling(char errnum)
 		write(2, "Invalid map name..\n", 19);
 	else
 		printf("%s\n", strerror(errnum));
-}
-
-int	is_valid_map_name(char *filename)
-{
-	int	len;
-	int	file;
-
-	len = ft_strlen(filename);
-	file = open(filename, O_RDONLY);
-	if (file < 0)
-	{
-		error_handling(errno);
-		return (0);
-	}
-	close(file);
-	if (!ft_strncmp(filename + (len - 4), ".ber\0", 5))
-		return (1);
-	error_handling(1);
-	return (0);
-}
-
-char	*read_map(char *map)
-{
-	int		file;
-	int		read_bytes;
-	int		total_bytes;
-	char	*buffer;
-	char	*map_b;
-
-	file = open(map, O_RDONLY);
-	buffer = malloc(4000);
-	read_bytes = read(file, buffer, 4000);
-	total_bytes = 0;
-	total_bytes += read_bytes;
-	while (read_bytes != 0)
-	{
-		read_bytes = read(file, buffer, 4000);
-		total_bytes += read_bytes;
-	}
-	close(file);
-	free(buffer);
-	map_b = ft_calloc(sizeof(char), total_bytes);
-	file = open(map, O_RDONLY);
-	read(file, map_b, total_bytes);
-	map_b[total_bytes] = 0;
-	return(map_b);
 }
 
 void	attack_left(void *param)
@@ -397,11 +351,10 @@ void	hook(void *param)
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_SPACE))
 		attack_left(data);
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_X))
-		printf("%s\n", data->map[0]);
+		death_animation(data);
 	else 
 	{
 		idle_animation(data);
-		printf("player dead %d\n", data->player_dead);
 		while (data->player_dead == 1)
 		{
 			new_image = mlx_load_png("assets/Death_6.png");
@@ -413,7 +366,7 @@ void	hook(void *param)
 	}
 }
 
-void	draw_map(char **map, t_data *data)
+void	draw_map(t_data *data)
 {		
 	int	i;
 	int delim;
@@ -422,7 +375,6 @@ void	draw_map(char **map, t_data *data)
 
 	i = 0;
 	delim = 74;
-	printf("%s\n", map[1]);
 	new_image = mlx_load_png("assets/terrain/Dungeon_Tileset1.png");
 	new_player = mlx_texture_to_image(data->mlx, new_image);
 	while (i < 8)
@@ -437,6 +389,7 @@ void	draw_map(char **map, t_data *data)
 int32_t	main(int argc, char **argv)
 {
 	t_data *data;
+	char	*temp;
 
 	data = NULL;
 	data = (t_data*)malloc(sizeof(t_data));
@@ -446,9 +399,22 @@ int32_t	main(int argc, char **argv)
 		return (0);
 	}
 	if (is_valid_map_name(argv[1]))
-		data->map = ft_split(read_map(argv[1]), '\n');
+	{
+		temp = read_map(argv[1]);
+		if (!temp)
+			return (0);
+		data->map = ft_split(temp, '\n');
+		free(temp);
+	}
 	else
 		return (1);
+	if (!is_valid_map(data->map))
+	{
+		write(1, "Invalid map structure...\n", 25);
+		return (0);
+	}
+	return (0);
+	draw_map(data);
 	mlx_set_setting(MLX_MAXIMIZED, false);
 	data->mlx = mlx_init(WIDTH, HEIGHT, "so_long", true);
 	if (!data->mlx)
@@ -458,7 +424,6 @@ int32_t	main(int argc, char **argv)
 	data->player = mlx_load_png("assets/terrain/Dungeon_Tileset2.png");
 	data-> img = mlx_texture_to_image(data->mlx, data->player);
 	mlx_delete_texture(data->player);
-	draw_map(data->map, data);
 
 	data->player = mlx_load_png("assets/Idle_1.png");
 	data->player_img = mlx_texture_to_image(data->mlx, data->player);

@@ -9,6 +9,7 @@ CC= cc
 FLAGS= -g -Wall -Werror -Wextra
 
 OBJ= obj/main.o \
+	 obj/map_check.o \
 
 LIBFT= obj/libft/libft.o
 GNL= obj/gnl/gnl.o
