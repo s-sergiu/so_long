@@ -1,0 +1,6 @@
+*.swp
+*.swo
+obj/
+so_long
+tags
+

@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 06:57:33 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/13 18:24:54 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/13 19:35:05 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -415,6 +415,11 @@ int	main(int argc, char **argv)
 		map_string = read_map(argv[1]);
 		if (!map_string)
 			return (1);
+		if (has_map_components(map_string))
+		{	
+			write(1, "Invalid map structurexxx...\n", 28);
+			return (1);
+		}
 		data->map = ft_split(map_string, '\n');
 		free(map_string);
 	}
