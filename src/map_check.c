@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 19:16:47 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/12 05:48:49 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/13 18:40:07 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,118 +19,62 @@ size_t	ft_arrlength(char **string)
 	i = 0;
 	while (string[i] != 0)
 		i++;
-	
 	return (i);
 }
 
-int	is_valid_map_name(char *filename)
+int upper_wall_closed(char *upper_wall)
 {
-	int	len;
-	int	file;
+	int	i;
 
-	len = ft_strlen(filename);
-	file = open(filename, O_RDONLY);
-	if (file < 0)
-	{
-		error_handling(errno);
-		return (0);
-	}
-	close(file);
-	if (!ft_strncmp(filename + (len - 4), ".ber\0", 5))
-		return (1);
-	error_handling(1);
+	i = 0;
+	while (upper_wall[i] != 0)
+		if (upper_wall[i++] != '1')
+			return(1);
 	return (0);
 }
 
-int is_valid_map_structure(char **map)
+int sidewalls_closed(char **map)
 {
-	size_t	reper;
-	size_t	i;
-	
-	reper = ft_strlen(*map);
-	printf("checking map structure\n");
+	size_t i;
+	size_t array_length;
+	size_t string_length;
+
 	i = 0;
-	while (i < ft_arrlength(map))
-		if (ft_strlen(map[i++]) != reper)
-			return (0);
-	printf("map is good\n");
-	return (1);
+	array_length = ft_arrlength(map);
+	string_length = ft_strlen(*map);
+	while (i < array_length)
+	{
+		if (map[i][0] != '1' || map[i][string_length - 1] != '1')
+			return(1);
+		i++;
+	}
+	return (0);
 }
 
-int	is_valid_map(char **map)
+int lower_wall_closed(char *lower_wall)
 {
-	size_t	i;
-	size_t	len;
-	size_t	arrlen;
+	int	i;
 
-	if (!is_valid_map_structure(map))
-		return(0);
 	i = 0;
-	printf("yesss\n");
-	arrlen = ft_arrlength(map);
-	len = ft_strlen(*map);
-	while (map[0][i] != 0)
-	{
-		if (map[0][i++] != '1')
-			return(0);
-	}
-	i = 0;
-	while (i < arrlen)
-	{
-		if (map[i++][0] != '1')
-			return(0);
-	}
-	i = 0;
-	while (i < arrlen)
-	{
-		if (map[i++][len - 1] != '1')
-			return(0);
-	}
-	i = 0;
-	while (map[arrlen - 1][i] != 0)
-	{
-		if (map[arrlen - 1][i++] != '1')
-			return(0);
-	}
-	return (1);
+	while (lower_wall[i] != 0)
+		if (lower_wall[i++] != '1')
+			return(1);
+	return (0);
 }
 
-int	get_map_bytes(char *map)
+int	not_valid_map(char **map)
 {
-	int		file;
-	char	*buffer;
-	int		read_bytes;
-	int		total_bytes;
+	size_t	array_length;
 
-	file = open(map, O_RDONLY);
-	buffer = malloc(100);
-	read_bytes = read(file, buffer, 100);
-	if (read_bytes == 0)
-		return (0);
-	total_bytes = 0;
-	total_bytes += read_bytes;
-	while (read_bytes != 0)
-	{
-		read_bytes = read(file, buffer, 100);
-		total_bytes += read_bytes;
-	}
-	close(file);
-	free(buffer);
-	return (total_bytes);
+	array_length = ft_arrlength(map);
+	if (valid_map_structure(map))
+		return (1);
+	if (upper_wall_closed(*map))
+		return (1);
+	if (sidewalls_closed(map))
+		return (1);
+	if (lower_wall_closed(map[array_length - 1]))
+		return (1);
+	return (0);
 }
 
-char	*read_map(char *map)
-{
-	int		file;
-	int		bytes;
-	char	*map_b;
-
-	bytes = get_map_bytes(map);	
-	map_b = ft_calloc(sizeof(char), bytes);
-	file = open(map, O_RDONLY);
-	read(file, map_b, bytes);
-	close(file);
-	map_b[bytes] = 0;
-	printf("yes\n");
-	return(map_b);
-}

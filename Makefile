@@ -10,6 +10,8 @@ FLAGS= -g -Wall -Werror -Wextra
 
 OBJ= obj/main.o \
 	 obj/map_check.o \
+	 obj/test.o \
+	 obj/read_map.o
 
 LIBFT= obj/libft/libft.o
 GNL= obj/gnl/gnl.o

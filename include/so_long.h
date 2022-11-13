@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 02:13:15 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/11 19:20:29 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/13 02:29:03 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,10 @@ typedef struct player
 }	t_player;
 
 char	*read_map(char *map);
-int		is_valid_map_name(char *filename);
-int		is_valid_map(char **map);
+int		valid_map_name(char *filename);
+int		not_valid_map(char **map);
 void	error_handling(char errnum);
-int		is_valid_map_structure(char **map);
+int		valid_map_structure(char **map);
+size_t	ft_arrlength(char **string);
 
 #endif

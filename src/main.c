@@ -6,19 +6,11 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 06:57:33 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/12 05:47:07 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/13 18:24:54 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
-
-void	error_handling(char errnum)
-{
-	if (errnum == 1)
-		write(2, "Invalid map name..\n", 19);
-	else
-		printf("%s\n", strerror(errnum));
-}
 
 void	attack_left(void *param)
 {
@@ -386,39 +378,8 @@ void	draw_map(t_data *data)
 		mlx_image_to_window(data->mlx, data->img, 20, 88);
 }
 
-int32_t	main(int argc, char **argv)
+void	mlx_stuff(t_data *data)
 {
-	t_data *data;
-	char	*temp;
-
-	data = NULL;
-	data = (t_data*)malloc(sizeof(t_data));
-	if (argc != 2)
-	{
-		write(1, "Usage: ./so_long <name>.ber\n", 28);
-		return (0);
-	}
-	if (is_valid_map_name(argv[1]))
-	{
-		temp = read_map(argv[1]);
-		if (!temp)
-			return (0);
-		data->map = ft_split(temp, '\n');
-		free(temp);
-	}
-	else
-		return (1);
-	if (!is_valid_map(data->map))
-	{
-		write(1, "Invalid map structure...\n", 25);
-		return (0);
-	}
-	return (0);
-	draw_map(data);
-	mlx_set_setting(MLX_MAXIMIZED, false);
-	data->mlx = mlx_init(WIDTH, HEIGHT, "so_long", true);
-	if (!data->mlx)
-		return(1);
 	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	/* Do stuff */
 	data->player = mlx_load_png("assets/terrain/Dungeon_Tileset2.png");
@@ -433,5 +394,41 @@ int32_t	main(int argc, char **argv)
 	mlx_loop_hook(data->mlx, &hook, data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
-	return (EXIT_SUCCESS);
+}
+
+int	main(int argc, char **argv)
+{
+	t_data *data;
+	char	*map_string;
+
+	if (argc != 2)
+	{
+		write(1, "Usage: ./so_long <name>.ber\n", 28);
+		return (1);
+	}
+
+	// init data
+	data = (t_data*)malloc(sizeof(t_data));
+	
+	if (!valid_map_name(argv[1]))
+	{
+		map_string = read_map(argv[1]);
+		if (!map_string)
+			return (1);
+		data->map = ft_split(map_string, '\n');
+		free(map_string);
+	}
+	else
+		return (1);
+	if (not_valid_map(data->map))
+	{
+		write(1, "Invalid map structure...\n", 25);
+		return (1);
+	}
+	mlx_set_setting(MLX_MAXIMIZED, false);
+	data->mlx = mlx_init(WIDTH, HEIGHT, "so_long", true);
+	if (!data->mlx)
+		return(1);
+	mlx_stuff(data);
+	return (0);
 }
