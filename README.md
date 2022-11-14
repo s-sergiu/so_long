@@ -41,3 +41,8 @@ while (p.coords != E.coords)
 				go to previous coords
 				delete the coord from history list
 		 
+
+
+FLOW :
+
+
