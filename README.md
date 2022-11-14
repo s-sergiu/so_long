@@ -18,3 +18,26 @@
 		check borders;
 		check for valid path;
 
+
+movement[4]
+i = -1;
+
+movement[0] = right
+movement[1] = down
+movement[2] = left
+movement[3] = up
+
+while (p.coords != E.coords)	
+	moved flag == 0;
+	try 0
+		while (movement[++i])
+			if (p -> movement[i] == valid)
+				add coord to list (history list -> visited coords);
+				p -> location is = movement[i];
+				moved flag == 1;
+		
+		if (moved flag == 0)
+			step back
+				go to previous coords
+				delete the coord from history list
+		 
