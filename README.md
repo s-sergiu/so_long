@@ -1,5 +1,5 @@
 ## //TODO 
-	+ shorten missing components() - map_components_check.c
+	+ implement recursive check for valid path;
 
 ### 1) check nr args is == 2; if not -> print usage and exit(1);
 ### 2) check file 
