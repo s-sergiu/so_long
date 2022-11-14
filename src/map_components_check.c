@@ -6,13 +6,13 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 19:10:41 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/13 19:35:49 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/14 10:11:05 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-int has_map_components(char *map)
+int is_missing_components(char *map)
 {
 	int	i;
 	int player_flag;
@@ -25,6 +25,9 @@ int has_map_components(char *map)
 	collectible_flag = 0;
 	while (map[++i] != 0)
 	{
+		if ((map[i] != '1' && map[i] != '0') && (map[i] != 'C' && map[i] != 'E')
+			&& (map[i] != 'P' && map[i] != '\n'))
+			return (1);
 		if (map[i] == 'P')
 			player_flag++;
 		if (map[i] == 'E')		
@@ -34,7 +37,5 @@ int has_map_components(char *map)
 	}
 	if (player_flag == 1 && exit_flag == 1 && collectible_flag > 0)
 		return (0);
-	printf("collectible %d\nexit %d\nplayer %d\n", collectible_flag,
-		exit_flag, player_flag);
 	return (1);
 }

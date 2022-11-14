@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 19:16:47 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/13 18:40:07 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/14 06:07:57 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@ size_t	ft_arrlength(char **string)
 	size_t	i;	
 	
 	i = 0;
-	while (string[i] != 0)
+	while (string[i])
+	{
+		printf("index %zu: %s\n", i, string[i]);
 		i++;
+	}
 	return (i);
 }
 
@@ -33,14 +36,12 @@ int upper_wall_closed(char *upper_wall)
 	return (0);
 }
 
-int sidewalls_closed(char **map)
+int sidewalls_closed(char **map, size_t array_length)
 {
 	size_t i;
-	size_t array_length;
 	size_t string_length;
 
 	i = 0;
-	array_length = ft_arrlength(map);
 	string_length = ft_strlen(*map);
 	while (i < array_length)
 	{
@@ -67,14 +68,27 @@ int	not_valid_map(char **map)
 	size_t	array_length;
 
 	array_length = ft_arrlength(map);
-	if (valid_map_structure(map))
+	if (not_valid_map_structure(map, array_length))
+	{
+		printf("Not valid map structure\n");
 		return (1);
+	}
 	if (upper_wall_closed(*map))
+	{
+		printf("Upper wall leak\n");
 		return (1);
-	if (sidewalls_closed(map))
+	}
+	if (sidewalls_closed(map, array_length))
+	{
+		printf("Side wall leak\n");
 		return (1);
+	}
+		printf("yes\n");
 	if (lower_wall_closed(map[array_length - 1]))
+	{
+		printf("Lower wall leak %zu\n", array_length);
 		return (1);
+	}
 	return (0);
 }
 

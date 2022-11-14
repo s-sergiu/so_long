@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 22:50:45 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/13 03:56:07 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/14 09:30:13 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,10 @@ char	*read_map(char *map)
 	int		bytes;
 	char	*map_b;
 
-	bytes = get_map_bytes(map);	
+	bytes = get_map_bytes(map) + 1;	
 	map_b = ft_calloc(sizeof(char), bytes);
 	file = open(map, O_RDONLY);
 	read(file, map_b, bytes);
 	close(file);
-	map_b[bytes] = 0;
 	return(map_b);
 }

@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 17:31:02 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/13 18:22:34 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/14 05:29:17 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	error_handling(char errnum)
 		printf("%s\n", strerror(errnum));
 }
 
-int	valid_map_name(char *filename)
+int	not_valid_map_name(char *filename)
 {
 	int	len;
 	int	file;
@@ -38,7 +38,7 @@ int	valid_map_name(char *filename)
 	return (1);
 }
 
-int valid_map_structure(char **map)
+int not_valid_map_structure(char **map, size_t array_length)
 {
 	size_t	guide;
 	size_t	i;
@@ -47,10 +47,8 @@ int valid_map_structure(char **map)
 		return (1);
 	guide = ft_strlen(*map);
 	i = 1;
-	while (i < ft_arrlength(map))
-	{
+	while (i < array_length)
 		if (ft_strlen(map[i++]) != guide)
 			return (1);
-	}
 	return (0);
 }

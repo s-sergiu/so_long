@@ -20,8 +20,7 @@ LIBFT_DIR= src/libft
 GNL_DIR= src/gnl
 
 $(NAME): $(GNL) $(LIBFT) $(OBJ) 
-	$(CC) $(OBJ) $(GNL) $(LIBFT) lib/MLX42/libmlx42.a \
-	-lglfw -L ~/.brew/Cellar/glfw/3.3.8/lib -o $(NAME)
+	$(CC) $(OBJ) $(GNL) $(LIBFT) -o $(NAME)
 
 obj/%.o: src/%.c
 	$(CC) -g -Wall -Wextra -Werror -c $< -o $@
