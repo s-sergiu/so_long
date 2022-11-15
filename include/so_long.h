@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 02:13:15 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/14 05:29:49 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/15 11:54:04 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,29 +25,35 @@
 # define HEIGHT 1080
 
 
-typedef struct data 
+struct s_map 
 {
-	mlx_t *mlx;
-	mlx_image_t *img;
-	mlx_texture_t *player;
-	mlx_image_t *player_img;
-	int			player_dead;
-	char		**map;
-}		t_data;
+	char				**map;
+	struct s_position	*player;
+	struct s_position	*exit;
+	struct s_visited	*visited_list;
+	struct s_visited	*double_visited;
+	struct s_position	*movements[4];
+	char				move_flag;
+};
 
-typedef struct player
+struct s_position
 {
-	int	direction;
-	int	is_alive;
-	mlx_image_t	*idle_sprite[8];
-}	t_player;
+	int x;
+	int y;
+};
 
-char	*read_map(char *map);
-int		not_valid_map_name(char *filename);
-int		not_valid_map(char **map);
-void	error_handling(char errnum);
-int		not_valid_map_structure(char **map, size_t array_length);
-size_t	ft_arrlength(char **string);
-int		is_missing_components(char *map);
+typedef struct s_position t_position;
+typedef struct s_map t_map;
+
+char		*read_map(char *map);
+int			not_valid_map_name(char *filename);
+int			not_valid_map(char **map);
+void		error_handling(char errnum);
+int			not_valid_map_structure(char **map, size_t array_length);
+size_t		ft_arrlength(char **string);
+int			is_missing_components(char *map);
+t_map		*init_structure(char *map_string);
+t_position	*get_player_position(char **map);
+int			has_valid_path(t_map *map);
 
 #endif

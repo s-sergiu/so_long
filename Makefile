@@ -12,7 +12,8 @@ OBJ= obj/main.o \
 	 obj/map_wall_checks.o \
 	 obj/map_components_check.o \
 	 obj/test.o \
-	 obj/read_map.o
+	 obj/read_map.o \
+	 obj/backtracking.o
 
 LIBFT= obj/libft/libft.o
 GNL= obj/gnl/gnl.o

@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 17:05:23 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/03 07:18:24 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/15 07:09:26 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@
 # include <unistd.h>
 # include <stddef.h>
 
-typedef struct s_list
+struct s_visited
 {
-	void			*content;
-	struct s_list	*next;
-}					t_list;
+	struct s_position	*position;	
+	struct s_visited	*next;
+};
+
+typedef struct s_visited t_list;
 
 long				ft_atoi(const char *str);
 void				ft_bzero(void *s, size_t n);

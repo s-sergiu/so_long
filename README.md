@@ -30,7 +30,6 @@ movement[3] = up
 
 while (p.coords != E.coords)	
 	moved flag == 0;
-	try 0
 		while (movement[++i])
 			if (p -> movement[i] == valid)
 				add coord to list (history list -> visited coords);
