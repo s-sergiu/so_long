@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 03:13:46 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/16 08:11:00 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/16 13:02:10 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ void	print_map(char **map)
 		printf("%s\n",map[i++]);
 }
 
-int	has_valid_path(t_map *map)
+void	has_valid_path(t_map *map)
 {
 	int		i;
 	t_position *node;
@@ -183,11 +183,10 @@ int	has_valid_path(t_map *map)
 		{
 				ft_lstadd_front(&map->double_visited, ft_lstnew(map->player));	
 				if (map->visited_list == NULL)
-					return (0);
+					return ;
 				map->player = get_last_visited_coord(map->visited_list);
 				map->visited_list = map->visited_list->next;
 		}
 		i = -1;
 	}
-	return (1);
 }

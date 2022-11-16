@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 02:13:15 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/16 09:05:57 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/16 11:51:44 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ typedef struct s_position t_position;
 typedef struct s_map t_map;
 
 void		print_map(char **map);
+void		has_valid_path(t_map *map);
 char		*read_map(char *map);
+size_t		ft_arrlength(char **string);
 int			not_valid_map_name(char *filename);
 int			not_valid_map(char **map);
 int			error_handling(char errnum);
 int			not_valid_map_structure(char **map, size_t array_length);
-size_t		ft_arrlength(char **string);
 int			is_missing_components(char *map);
 t_map		*init_structure(char *map_string);
 t_position	*get_player_position(char **map);
-int			has_valid_path(t_map *map);
 
 #endif
