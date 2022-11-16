@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 02:13:15 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/16 02:30:51 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/16 09:05:57 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,11 @@ struct s_position
 typedef struct s_position t_position;
 typedef struct s_map t_map;
 
+void		print_map(char **map);
 char		*read_map(char *map);
 int			not_valid_map_name(char *filename);
 int			not_valid_map(char **map);
-void		error_handling(char errnum);
+int			error_handling(char errnum);
 int			not_valid_map_structure(char **map, size_t array_length);
 size_t		ft_arrlength(char **string);
 int			is_missing_components(char *map);

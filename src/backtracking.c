@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 03:13:46 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/16 02:54:33 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/16 08:11:00 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,16 +137,29 @@ int	is_valid_coord(t_position position, char **map, t_list *head, t_list *head2)
 	return (1);
 }
 
+void	travel_map(t_position *player, char **map)
+{
+	map[player->x][player->y] = 'X';	
+}
+
+void	print_map(char **map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+		printf("%s\n",map[i++]);
+}
+
 int	has_valid_path(t_map *map)
 {
 	int		i;
-	int		count;
 	t_position *node;
 	t_position new_pos;
 
 	i = -1;
-	count = 0;
-	while (same_coords(map->player, map->exit))
+	travel_map(map->player, map->map);
+	while (1)
 	{
 		while (map->movements[++i])
 		{
@@ -155,27 +168,26 @@ int	has_valid_path(t_map *map)
 			if (is_valid_coord(new_pos, map->map, map->visited_list,
 				map->double_visited) == 0)
 			{
-				printf("Player is at :%d,%d;\n", map->player->x, map->player->y);
 				node = (t_position *)malloc(sizeof(t_position));
 				node->x = map->player->x;
 				node->y = map->player->y;
 				ft_lstadd_front(&map->visited_list, ft_lstnew(node));
 				map->player->x = new_pos.x;
 				map->player->y = new_pos.y;
+				travel_map(map->player, map->map);
 				map->move_flag = 1;
-				count++;
 				break ;
 			}
-			print_list(map->double_visited);
 		}
 		if (map->move_flag == 0)
 		{
 				ft_lstadd_front(&map->double_visited, ft_lstnew(map->player));	
+				if (map->visited_list == NULL)
+					return (0);
 				map->player = get_last_visited_coord(map->visited_list);
 				map->visited_list = map->visited_list->next;
 		}
 		i = -1;
-	printf("count is %d\n", count);
 	}
 	return (1);
 }
