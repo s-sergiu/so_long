@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 06:57:33 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/16 13:02:57 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/16 14:00:19 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ int	main(int argc, char **argv)
 			return (1);
 		}
 		has_valid_path(map);
+		ft_lstclear(&map->double_visited, free); // free doesnt work
+		printf("player position: %d,%d\n", map->player->x, map->player->y);
+		printf("exit position: %d,%d\n", map->exit->x, map->exit->y);
 		if (contains_component(map->map))
 			write(2, "Map has no valid path.\n", 23);
 		free(map_string);
