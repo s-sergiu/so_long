@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 22:31:08 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/03 07:18:00 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/16 02:29:37 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_list	*ft_lstnew(void *content)
 	new = (t_list *)malloc(sizeof(t_list));
 	if (!new)
 		return (NULL);
-	new->content = content;
+	new->position = content;
 	new->next = NULL;
 	return (new);
 }

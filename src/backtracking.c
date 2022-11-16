@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 03:13:46 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/15 12:15:43 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/16 02:54:33 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,27 +69,6 @@ int	same_coords(t_position *player, t_position *exit)
 	return (1);
 }
 
-int	not_visited(t_position *position, t_list *head)
-{
-	t_list *cursor;
-	
-	cursor = head;
-	while(cursor)
-	{
-		if (same_coords(cursor->position, position) == 0)
-			return (1);
-		cursor = cursor->next;
-	}
-	return (0);
-}
-
-int	is_valid_coord(t_position position, char **map, t_list *head)
-{
-	if (not_visited(&position, head) == 0 && map[position.x][position.y] != '1')
-		return (0);
-	return (1);
-}
-
 t_map	*init_structure(char *map_string)	
 {
 	t_map	*map;
@@ -126,6 +105,37 @@ void	print_list(t_list *head)
 		cursor = cursor->next;
 	}
 }
+t_position	*get_last_visited_coord(struct s_visited *visited_list)
+{
+	struct s_visited *last_visited;	
+
+	last_visited = visited_list;
+	visited_list = visited_list->next;
+
+	return (last_visited->position);
+}
+
+int	not_visited(t_position *position, t_list *head)
+{
+	t_list *cursor;
+	
+	cursor = head;
+	while(cursor)
+	{
+		if (same_coords(cursor->position, position) == 0)
+			return (1);
+		cursor = cursor->next;
+	}
+	return (0);
+}
+
+int	is_valid_coord(t_position position, char **map, t_list *head, t_list *head2)
+{
+	if ((not_visited(&position, head2) == 1 || not_visited(&position, head)) == 0 
+			&& map[position.x][position.y] != '1')
+		return (0);
+	return (1);
+}
 
 int	has_valid_path(t_map *map)
 {
@@ -138,11 +148,12 @@ int	has_valid_path(t_map *map)
 	count = 0;
 	while (same_coords(map->player, map->exit))
 	{
-	map->move_flag = 0;
 		while (map->movements[++i])
 		{
+			map->move_flag = 0;
 			new_pos = calculate_coords(map->player, map->movements[i]);
-			if (is_valid_coord(new_pos, map->map, map->visited_list) == 0)
+			if (is_valid_coord(new_pos, map->map, map->visited_list,
+				map->double_visited) == 0)
 			{
 				printf("Player is at :%d,%d;\n", map->player->x, map->player->y);
 				node = (t_position *)malloc(sizeof(t_position));
@@ -155,15 +166,13 @@ int	has_valid_path(t_map *map)
 				count++;
 				break ;
 			}
-			print_list(map->visited_list);
+			print_list(map->double_visited);
 		}
 		if (map->move_flag == 0)
 		{
-			step back-> go to previous coord
-				get last added elem;
-				player pos add to 2x visited;
-				move player to last added elem;
-				delete the coord from last visited;
+				ft_lstadd_front(&map->double_visited, ft_lstnew(map->player));	
+				map->player = get_last_visited_coord(map->visited_list);
+				map->visited_list = map->visited_list->next;
 		}
 		i = -1;
 	printf("count is %d\n", count);

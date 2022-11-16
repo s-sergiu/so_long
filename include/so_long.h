@@ -6,21 +6,19 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 02:13:15 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/15 11:54:04 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/16 02:30:51 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# include "../lib/MLX42/include/MLX42/MLX42.h"
+//# include "../lib/MLX42/include/MLX42/MLX42.h"
 # include <fcntl.h>
 # include "libft.h"
-# include "get_next_line.h"
 # include <stdio.h>
 # include <sys/errno.h>
 # include <string.h>
-# include <math.h>
 # define WIDTH 1920
 # define HEIGHT 1080
 
