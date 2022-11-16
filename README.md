@@ -59,3 +59,5 @@ FLOW :
 
 6. Check if valid 2d map
 	+ NO -> not a valid map and exit unsuccesfully;
+
+added something in readme
