@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 02:13:15 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/17 08:47:34 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/17 09:21:28 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int			structure_error(t_map *map);
 void		destroy_structure(t_map *map);
 int			empty_map(char *map_string);
 t_position	calculate_coords(t_position *player, t_position *movement);
-t_map		*init_structure(char *map_string);
 void		free_split(char **split);
 char		check_map_for_errors(t_map **map, char *argv);
 int			no_valid_path(t_map *map);
