@@ -6,13 +6,13 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 22:50:45 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/17 04:37:49 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/17 06:54:51 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-int free_and_return(void *memory)
+int	free_and_return(void *memory)
 {
 	free(memory);
 	return (1);
@@ -48,10 +48,10 @@ char	*read_map(char *map)
 	int		bytes;
 	char	*map_b;
 
-	bytes = get_map_bytes(map) + 1;	
+	bytes = get_map_bytes(map) + 1;
 	map_b = ft_calloc(sizeof(char), bytes);
 	file = open(map, O_RDONLY);
 	read(file, map_b, bytes);
 	close(file);
-	return(map_b);
+	return (map_b);
 }

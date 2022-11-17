@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 17:31:02 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/16 10:45:24 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/17 06:52:41 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ int	not_valid_map_name(char *filename)
 	close(file);
 	len = ft_strlen(filename);
 	if (ft_strncmp(filename + (len - 4), ".ber\0", 5))
-		return (error_handling(0));
+		return (error_handling(errno));
 	return (0);
 }
 
-int not_valid_map_structure(char **map, size_t array_length)
+int	not_valid_map_structure(char **map, size_t array_length)
 {
 	size_t	guide;
 	size_t	i;
-	
+
 	if (!*map)
 		return (1);
 	guide = ft_strlen(*map);

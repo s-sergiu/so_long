@@ -6,16 +6,16 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 19:10:41 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/14 10:11:05 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/17 07:02:50 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-int is_missing_components(char *map)
+int	is_missing_components(char *map)
 {
 	int	i;
-	int player_flag;
+	int	player_flag;
 	int	exit_flag;
 	int	collectible_flag;
 
@@ -30,9 +30,9 @@ int is_missing_components(char *map)
 			return (1);
 		if (map[i] == 'P')
 			player_flag++;
-		if (map[i] == 'E')		
+		if (map[i] == 'E')
 			exit_flag++;
-		if (map[i] == 'C')		
+		if (map[i] == 'C')
 			collectible_flag++;
 	}
 	if (player_flag == 1 && exit_flag == 1 && collectible_flag > 0)

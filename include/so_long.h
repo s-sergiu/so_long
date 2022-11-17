@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 02:13:15 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/16 11:51:44 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/17 06:50:06 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ struct s_map
 	struct s_position	*exit;
 	struct s_visited	*visited_list;
 	struct s_visited	*double_visited;
-	struct s_position	*movements[4];
+	struct s_position	*movements[5];
 	char				move_flag;
 };
 
@@ -54,5 +54,15 @@ int			not_valid_map_structure(char **map, size_t array_length);
 int			is_missing_components(char *map);
 t_map		*init_structure(char *map_string);
 t_position	*get_player_position(char **map);
+int			usage_error(void);
+int			components_error(char *map_string);
+int			structure_error(t_map *map);
+void		destroy_structure(t_map *map);
+int			empty_map(char *map_string);
+t_position	calculate_coords(t_position *player, t_position *movement);
+t_map		*init_structure(char *map_string);
+void		free_split(char **split);
+char		check_map_for_errors(t_map **map, char *argv);
+int			no_valid_path(t_map *map);
 
 #endif

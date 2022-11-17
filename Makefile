@@ -13,7 +13,11 @@ OBJ= obj/main.o \
 	 obj/map_components_check.o \
 	 obj/test.o \
 	 obj/read_map.o \
-	 obj/backtracking.o
+	 obj/backtracking.o \
+	 obj/errors.o \
+	 obj/other.o \
+	 obj/struct_utils.o \
+	 obj/map_check.o \
 
 LIBFT= obj/libft/libft.o
 GNL= obj/gnl/gnl.o

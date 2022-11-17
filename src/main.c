@@ -6,92 +6,20 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 06:57:33 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/17 04:36:03 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/17 06:58:32 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-int	is_component(char c)
-{
-	if ((c == 'E' || c == 'P') || c == 'C')
-		return (0);
-	return (1);
-}
-int	contains_component(char **map)
-{
-	int i;
-	int j;
-
-	i = -1;
-	j = 0;
-	while (map[++i])
-	{
-		while (map[i][j])
-			if (is_component(map[i][j++]) == 0)
-				return (1);
-		j = 0;
-	}
-	return (0);
-}
-
-void	free_split(char **split)
-{
-	int	i;
-
-	i = -1;
-	while (split[++i] != 0)
-		free(split[i]);
-	free(split);
-}
-
-void	destroy_structure(t_map *map)
-{
-	free(map->movements[0]);	
-	free(map->movements[1]);	
-	free(map->movements[2]);	
-	free(map->movements[3]);	
-	free_split(map->map);
-	free(map->exit);
-	free(map);
-}
-
 int	main(int argc, char **argv)
 {
-	char *map_string;
 	t_map	*map;
 
 	map = NULL;
 	if (argc != 2)
-	{
-		write(1, "Usage: ./so_long <name>.ber\n", 28);
-		return (1);
-	} else
-	{
-		if (not_valid_map_name(argv[1]))
-			return (1);
-		map_string = read_map(argv[1]);
-		if (is_missing_components(map_string))
-		{	
-			write(2, "Missing map components.\n", 24);
-			free(map_string);
-			return (1);
-		}
-		map = init_structure(map_string);
-		free(map_string);
-		if (not_valid_map(map->map))
-		{
-			write(2, "Map is leaking or structure is incorrect.\n", 42);
-			free(map->player);
-			destroy_structure(map);
-			return (1);
-		}
-		has_valid_path(map);
-		ft_lstclear(&map->double_visited, free);
-		print_map(map->map);
-		if (contains_component(map->map))
-			write(2, "Map has no valid path.\n", 23);
-		destroy_structure(map);
-	}
+		return (usage_error());
+	else
+		check_map_for_errors(&map, argv[1]);
 	return (0);
 }
