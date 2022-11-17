@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 06:57:33 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/16 14:00:19 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/17 03:25:19 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,27 @@ int	contains_component(char **map)
 	return (0);
 }
 
+void	free_split(char **split)
+{
+	int	i;
+
+	i = -1;
+	while (split[++i] != 0)
+		free(split[i]);
+	free(split);
+}
+
+void	destroy_structure(t_map *map)
+{
+	free(map->movements[0]);	
+	free(map->movements[1]);	
+	free(map->movements[2]);	
+	free(map->movements[3]);	
+	free_split(map->map);
+	free(map->exit);
+	free(map);
+}
+
 int	main(int argc, char **argv)
 {
 	char *map_string;
@@ -56,18 +77,19 @@ int	main(int argc, char **argv)
 			return (1);
 		}
 		map = init_structure(map_string);
+		free(map_string);
 		if (not_valid_map(map->map))
 		{
 			write(2, "Map is leaking or structure is incorrect.\n", 42);
 			return (1);
 		}
 		has_valid_path(map);
-		ft_lstclear(&map->double_visited, free); // free doesnt work
-		printf("player position: %d,%d\n", map->player->x, map->player->y);
-		printf("exit position: %d,%d\n", map->exit->x, map->exit->y);
+		ft_lstclear(&map->double_visited, free);
+		destroy_structure(map);
+		return (1);
+		print_map(map->map);
 		if (contains_component(map->map))
 			write(2, "Map has no valid path.\n", 23);
-		free(map_string);
 	}
 	return (0);
 }
