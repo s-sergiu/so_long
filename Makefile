@@ -18,14 +18,18 @@ OBJ= obj/main.o \
 	 obj/other.o \
 	 obj/struct_utils.o \
 	 obj/map_check.o \
+	 obj/draw_map.o \
+	 obj/old.o \
 
 LIBFT= obj/libft/libft.o
 GNL= obj/gnl/gnl.o
 LIBFT_DIR= src/libft
 GNL_DIR= src/gnl
+NAME_H= include/so_long.h
 
-$(NAME): $(GNL) $(LIBFT) $(OBJ) 
-	$(CC) $(OBJ) $(GNL) $(LIBFT) -o $(NAME)
+$(NAME): $(GNL) $(LIBFT) $(OBJ) $(NAME_H)
+	$(CC) $(OBJ) $(GNL) $(LIBFT) lib/MLX42/libmlx42.a \
+	-lglfw -L ~/.brew/Cellar/glfw/3.3.8/lib -o $(NAME)
 
 obj/%.o: src/%.c
 	$(CC) -g -Wall -Wextra -Werror -c $< -o $@

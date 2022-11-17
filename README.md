@@ -1,5 +1,10 @@
 ## //TODO 
-	+ implement recursive check for valid path;
+	+ tidy up structure;
+	+ make smaller functions;
+
+	+ draw map on screen;
+	+ player movement;
+	+ collision;
 
 #### 1. check nr args is == 2; if not -> print usage and exit(1);
 #### 2. check file 
@@ -59,6 +64,3 @@ FLOW :
 
 6. Check if valid 2d map
 	+ NO -> not a valid map and exit unsuccesfully;
-
-added something in readme
-added another thing
