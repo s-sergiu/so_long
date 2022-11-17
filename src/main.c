@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 06:57:33 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/17 03:25:19 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/17 04:36:03 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	main(int argc, char **argv)
 		if (is_missing_components(map_string))
 		{	
 			write(2, "Missing map components.\n", 24);
+			free(map_string);
 			return (1);
 		}
 		map = init_structure(map_string);
@@ -81,15 +82,16 @@ int	main(int argc, char **argv)
 		if (not_valid_map(map->map))
 		{
 			write(2, "Map is leaking or structure is incorrect.\n", 42);
+			free(map->player);
+			destroy_structure(map);
 			return (1);
 		}
 		has_valid_path(map);
 		ft_lstclear(&map->double_visited, free);
-		destroy_structure(map);
-		return (1);
 		print_map(map->map);
 		if (contains_component(map->map))
 			write(2, "Map has no valid path.\n", 23);
+		destroy_structure(map);
 	}
 	return (0);
 }

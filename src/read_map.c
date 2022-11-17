@@ -6,11 +6,17 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 22:50:45 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/14 09:30:13 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/17 04:37:49 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
+
+int free_and_return(void *memory)
+{
+	free(memory);
+	return (1);
+}
 
 int	get_map_bytes(char *map)
 {
@@ -23,7 +29,7 @@ int	get_map_bytes(char *map)
 	buffer = malloc(100);
 	read_bytes = read(file, buffer, 100);
 	if (read_bytes == 0)
-		return (1);
+		return (free_and_return(buffer));
 	total_bytes = 0;
 	total_bytes += read_bytes;
 	while (read_bytes != 0)

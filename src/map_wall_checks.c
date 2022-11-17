@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 19:16:47 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/16 13:30:57 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/17 04:32:40 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int sidewalls_closed(char **map, size_t array_length)
 
 	i = 0;
 	string_length = ft_strlen(*map);
-	while (i++ < array_length)
+	while (i < array_length)
 	{
 		if (not_wall(map[i][0]) || not_wall(map[i][string_length - 1]))
 			return(1);

@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 03:13:46 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/17 03:55:19 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/17 04:00:08 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,9 +164,6 @@ void	has_valid_path(t_map *map)
 				map->player->x = new_pos.x;
 				map->player->y = new_pos.y;
 				travel_map(map->player, map->map);
-				print_map(map->map);
-				usleep(1000);
-				system("clear");
 				map->move_flag = 1;
 				break ;
 			}
