@@ -6,11 +6,21 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 06:57:33 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/17 06:58:32 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/17 07:37:53 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
+
+size_t	ft_arrlength(char **string)
+{
+	size_t	i;	
+
+	i = 0;
+	while (string[i])
+		i++;
+	return (i);
+}
 
 int	main(int argc, char **argv)
 {

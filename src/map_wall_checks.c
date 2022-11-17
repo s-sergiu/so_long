@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 19:16:47 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/17 07:02:38 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/17 07:35:51 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,6 @@ int	not_wall(char c)
 	if (c != '1')
 		return (1);
 	return (0);
-}
-
-size_t	ft_arrlength(char **string)
-{
-	size_t	i;	
-
-	i = 0;
-	while (string[i])
-		i++;
-	return (i);
 }
 
 int	upper_wall_closed(char *upper_wall)

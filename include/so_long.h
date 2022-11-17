@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 02:13:15 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/17 06:50:06 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/17 08:47:34 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ struct s_map
 	struct s_visited	*double_visited;
 	struct s_position	*movements[5];
 	char				move_flag;
+	int					map_loop;
 };
 
 struct s_position
@@ -64,5 +65,7 @@ t_map		*init_structure(char *map_string);
 void		free_split(char **split);
 char		check_map_for_errors(t_map **map, char *argv);
 int			no_valid_path(t_map *map);
+int			is_valid_coord(t_position position, 
+			char **map, t_list *head, t_list *head2);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 17:31:02 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/17 06:52:41 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/17 07:38:06 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,14 @@ int	not_valid_map_structure(char **map, size_t array_length)
 		if (ft_strlen(map[i++]) != guide)
 			return (1);
 	return (0);
+}
+
+void	free_split(char **split)
+{
+	int	i;
+
+	i = -1;
+	while (split[++i] != 0)
+		free(split[i]);
+	free(split);
 }
