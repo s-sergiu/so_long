@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 22:50:45 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/18 14:16:34 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/18 16:06:44 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	free_and_return(void *memory)
 {
 	free(memory);
-	return (1);
+	return (TRUE);
 }
 
 int	get_map_bytes(char *map)

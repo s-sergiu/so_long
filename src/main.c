@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 06:57:33 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/18 15:20:36 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/18 15:53:12 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ int	main(int argc, char **argv)
 		else
 			write(1, "Map has no errors\n", 18);
 	}
-	return (0);
+	return (FALSE);
 }

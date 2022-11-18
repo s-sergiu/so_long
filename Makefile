@@ -9,19 +9,20 @@ CC= cc
 FLAGS= -g -Wall -Werror -Wextra
 
 OBJ= obj/main.o \
-	 obj/map_wall_checks.o \
-	 obj/map_components_check.o \
-	 obj/test.o \
+	 obj/wall_check.o \
+	 obj/component_check.o \
+	 obj/filename_check.o \
 	 obj/read_map.o \
 	 obj/backtracking.o \
 	 obj/errors.o \
-	 obj/other.o \
+	 obj/coord_tools.o \
 	 obj/struct_utils.o \
 	 obj/map_check.o \
 
 LIBFT= obj/libft/libft.o
 LIBFT_DIR= src/libft
 NAME_H= include/so_long.h
+
 
 $(NAME): $(LIBFT) $(OBJ) $(NAME_H)
 	$(CC) $(OBJ) $(GNL) $(LIBFT) lib/MLX42/libmlx42.a \
@@ -38,6 +39,8 @@ $(LIBFT): $(LIBFT_DIR)/*.c
 	@cp $(LIBFT_DIR)/libft.a $(LIBFT)
 	@make fclean -C $(LIBFT_DIR)
 
+all: $(NAME)
+
 clean:
 	@echo "$(MAGENTA)Cleaning object files.. $(ENDCOLOR)"
 	@$(RM) $(OBJ) $(BONUS_OBJ) $(LIBFT)
@@ -49,5 +52,3 @@ fclean: clean
 re: clean all
 
 .PHONY: bonus all clean fclean re
-
-
