@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 06:24:17 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/18 20:37:10 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/18 20:42:35 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	is_valid_coord(t_position position, t_map **map)
 {
 	if (!(not_visited(&position, (*map)->double_visited)
 			|| not_visited(&position, (*map)->visited_list)))
-			if (not_wall((*map)->map[position.x][position.y])
-				&& (*map)->map[position.x][position.y])
-				return (TRUE);
+		if (not_wall((*map)->map[position.x][position.y])
+		&& (*map)->map[position.x][position.y])
+			return (TRUE);
 	return (FALSE);
 }
 
