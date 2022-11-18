@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 02:13:15 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/18 18:10:56 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/18 20:06:07 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,14 @@ int			map_has_errors(char *argv);
 int			not_valid_map_name(char *filename);
 int			not_valid_map(char **map);
 int			not_valid_map_structure(char **map, size_t array_length);
+int			not_wall(char c);
 int			is_missing_components(char *map);
 int			print_usage(void);
 int			components_error(char *map_string);
 int			structure_error(t_map *map);
 int			empty_map(char *map_string);
 int			no_valid_path(t_map *map);
-int			is_valid_coord(t_position position, char **map,
-				t_list *head, t_list *head2);
+int			is_valid_coord(t_position position, t_map **map);
 size_t		ft_arrlength(char **string);
 t_position	*get_player_position(char **map);
 t_position	calculate_coords(t_position *player, t_position *movement);

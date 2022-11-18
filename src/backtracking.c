@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 03:13:46 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/18 18:58:37 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/18 19:59:44 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ void	check_map_path(t_map *map)
 		{
 			map->player_moved = 0;
 			new_pos = calculate_coords(map->player, map->movements[i++]);
-			if (is_valid_coord(new_pos, map->map, map->visited_list,
-					map->double_visited))
+			if (is_valid_coord(new_pos, &map))
 			{
 				move_player_to_new_pos(&new_pos, &map);
 				break ;
