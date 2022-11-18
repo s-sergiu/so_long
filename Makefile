@@ -13,7 +13,7 @@ OBJ= obj/main.o \
 	 obj/component_check.o \
 	 obj/filename_check.o \
 	 obj/read_map.o \
-	 obj/backtracking.o \
+	 obj/path_check.o \
 	 obj/errors.o \
 	 obj/coord_tools.o \
 	 obj/struct_utils.o \
