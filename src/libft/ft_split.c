@@ -6,11 +6,11 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 17:44:30 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/14 09:28:19 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/18 11:24:18 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../include/libft.h"
-#include <stdio.h>
 
 static char	*trim_string(char *s, char c)
 {

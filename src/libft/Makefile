@@ -6,7 +6,7 @@
 #    By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/25 16:42:02 by ssergiu           #+#    #+#              #
-#    Updated: 2022/11/17 10:28:48 by ssergiu          ###   ########.fr        #
+#    Updated: 2022/11/18 11:25:31 by ssergiu          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,21 +18,18 @@ AR = ar rcs
 RM = rm -f
 
 FILES = ft_strlen \
-		ft_strjoin \
-		ft_strdup \
+		ft_strlcpy \
 		ft_strncmp \
 		ft_calloc \
 		ft_bzero \
-		ft_isdigit \
+		ft_memcpy \
+		ft_split \
+		ft_putstr_fd \
+		ft_putnbr_fd \
+		ft_lstnew \
 		ft_lstadd_front \
 		ft_lstadd_back \
-		ft_lstnew \
-		ft_itoa \
-		ft_split \
-		ft_strlcpy \
-		ft_putstr_fd \
 		ft_lstclear \
-		ft_memset \
 
 OBJS_DIR = ./
 OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
@@ -52,6 +49,6 @@ clean:
 fclean: clean
 	@$(RM) $(NAME)
 
-re: clean all
+re: fclean all
 
 .PHONY: bonus all clean fclean re

@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 03:13:46 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/17 07:36:10 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/18 12:26:11 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	step_back(t_map **map)
 	temp = NULL;
 }
 
-void	has_valid_path(t_map *map)
+void	check_map_path(t_map *map)
 {
 	int			i;
 	t_position	new_pos;
@@ -69,9 +69,7 @@ void	has_valid_path(t_map *map)
 			}
 		}
 		if (map->move_flag == 0)
-		{
 			step_back(&map);
-		}
 		i = 0;
 	}
 }

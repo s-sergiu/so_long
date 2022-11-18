@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 06:57:33 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/17 10:19:10 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/18 15:20:36 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,11 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (print_usage());
 	else
-		if (map_has_no_errors(argv[1]))
-			init_game(argv[1]);
+	{
+		if (map_has_errors(argv[1]))
+			write(1, "Map has errors, exiting..\n", 26);
+		else
+			write(1, "Map has no errors\n", 18);
+	}
 	return (0);
 }

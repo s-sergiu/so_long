@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 19:16:47 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/17 07:35:51 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/18 15:30:22 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ int	lower_wall_closed(char *lower_wall)
 	i = 0;
 	while (lower_wall[i] != 0)
 		if (lower_wall[i++] != '1')
-			return (1);
-	return (0);
+			return (TRUE);
+	return (FALSE);
 }
 
 int	not_valid_map(char **map)
@@ -63,12 +63,12 @@ int	not_valid_map(char **map)
 
 	array_length = ft_arrlength(map);
 	if (not_valid_map_structure(map, array_length))
-		return (1);
+		return (TRUE);
 	if (upper_wall_closed(*map))
-		return (1);
+		return (TRUE);
 	if (sidewalls_closed(map, array_length))
-		return (1);
+		return (TRUE);
 	if (lower_wall_closed(map[array_length - 1]))
-		return (1);
-	return (0);
+		return (TRUE);
+	return (FALSE);
 }

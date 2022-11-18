@@ -18,29 +18,17 @@ OBJ= obj/main.o \
 	 obj/other.o \
 	 obj/struct_utils.o \
 	 obj/map_check.o \
-	 obj/draw_map.o \
-	 obj/old.o \
 
 LIBFT= obj/libft/libft.o
-GNL= obj/gnl/gnl.o
 LIBFT_DIR= src/libft
-GNL_DIR= src/gnl
 NAME_H= include/so_long.h
 
-$(NAME): $(GNL) $(LIBFT) $(OBJ) $(NAME_H)
+$(NAME): $(LIBFT) $(OBJ) $(NAME_H)
 	$(CC) $(OBJ) $(GNL) $(LIBFT) lib/MLX42/libmlx42.a \
 	-lglfw -L ~/.brew/Cellar/glfw/3.3.8/lib -o $(NAME)
 
 obj/%.o: src/%.c
 	$(CC) -g -Wall -Wextra -Werror -c $< -o $@
-
-$(GNL): $(GNL_DIR)/*.c
-	@if  [ ! -d obj/gnl ]; then \
-		mkdir -p obj/gnl; \
-	fi
-	@make -C $(GNL_DIR)
-	@cp $(GNL_DIR)/gnl.a $(GNL)
-	@make fclean -C $(GNL_DIR)
 
 $(LIBFT): $(LIBFT_DIR)/*.c
 	@if  [ ! -d obj/libft ]; then \
@@ -52,7 +40,7 @@ $(LIBFT): $(LIBFT_DIR)/*.c
 
 clean:
 	@echo "$(MAGENTA)Cleaning object files.. $(ENDCOLOR)"
-	@$(RM) $(OBJ) $(BONUS_OBJ) $(LIBFT) $(GNL)
+	@$(RM) $(OBJ) $(BONUS_OBJ) $(LIBFT)
 
 fclean: clean
 	@echo "$(MAGENTA)Cleaning all.. $(ENDCOLOR)"

@@ -6,21 +6,26 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 02:13:15 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/17 15:55:38 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/18 15:26:13 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#ifndef SO_LONG_H
+# define SO_LONG_H
 
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include <fcntl.h>
 # include "libft.h"
-# include <stdio.h>
 # include <sys/errno.h>
 # include <string.h>
-# define WIDTH ft_strlen((*data)->map[0]) * 32
-# define HEIGHT ft_arrlength((*data)->map) * 32 
+# define P_SPRITE 64
+# define TILE 32
+
+enum e_bool
+{
+	FALSE,
+	TRUE
+};
 
 struct s_data
 {
@@ -35,7 +40,7 @@ struct s_data
 	char			**map;
 };
 
-struct s_map 
+struct s_map
 {
 	char				**map;
 	struct s_position	*player;
@@ -49,48 +54,34 @@ struct s_map
 
 struct s_position
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 };
 
-typedef struct s_position t_position;
-typedef struct s_map t_map;
-typedef struct s_data t_data;
+typedef struct s_position	t_position;
+typedef struct s_map		t_map;
+typedef struct s_data		t_data;
 
-void		print_map(char **map);
-void		has_valid_path(t_map *map);
+void		check_map_path(t_map *map);
+void		free_split(char **split);
+void		destroy_structure(t_map *map);
 char		*read_map(char *map);
-size_t		ft_arrlength(char **string);
+int			map_has_errors(char *argv);
 int			not_valid_map_name(char *filename);
 int			not_valid_map(char **map);
 int			error_handling(char errnum);
 int			not_valid_map_structure(char **map, size_t array_length);
 int			is_missing_components(char *map);
-t_map		*init_structure(char *map_string);
-t_position	*get_player_position(char **map);
 int			print_usage(void);
 int			components_error(char *map_string);
 int			structure_error(t_map *map);
-void		destroy_structure(t_map *map);
 int			empty_map(char *map_string);
-t_position	calculate_coords(t_position *player, t_position *movement);
-void		free_split(char **split);
-char		map_has_no_errors(char *argv);
 int			no_valid_path(t_map *map);
-int			is_valid_coord(t_position position, 
-			char **map, t_list *head, t_list *head2);
-void		init_game(char *argv);
-void		idle_animation(void *param);
-void		run_animation(void *param);
-void		left_run_animation(void *param);
-void		right_run_animation(void *param);
-void		attack_left(void *param);
-void		attack_right(void *param);
-void		death_animation(void *param);
-int			init_game_data(t_data **data, char *argv);
-void		init_game(char *argv);
-void		put_tile(t_data **data);
-void		draw_map(t_data **data);
-void		add_player(t_data **data);
+int			is_valid_coord(t_position position, char **map,
+				t_list *head, t_list *head2);
+size_t		ft_arrlength(char **string);
+t_position	*get_player_position(char **map);
+t_position	calculate_coords(t_position *player, t_position *movement);
+t_map		*init_structure(char *map_string);
 
 #endif
