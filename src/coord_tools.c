@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 06:24:17 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/18 20:13:17 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/18 20:37:10 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int	same_coords(t_position *player, t_position *exit)
 {
 	if (player->x == exit->x && player->y == exit->y)
-		return (FALSE);
-	return (TRUE);
+		return (TRUE);
+	return (FALSE);
 }
 
 int	not_visited(t_position *position, t_list *head)
@@ -26,7 +26,7 @@ int	not_visited(t_position *position, t_list *head)
 	cursor = head;
 	while (cursor)
 	{
-		if (!same_coords(cursor->position, position))
+		if (same_coords(cursor->position, position))
 			return (TRUE);
 		cursor = cursor->next;
 	}
@@ -35,11 +35,11 @@ int	not_visited(t_position *position, t_list *head)
 
 int	is_valid_coord(t_position position, t_map **map)
 {
-	if ((not_visited(&position, (*map)->double_visited)
-			|| not_visited(&position, (*map)->visited_list)) == 0
-		&& not_wall((*map)->map[position.x][position.y])
-		&& (*map)->map[position.x][position.y])
-		return (TRUE);
+	if (!(not_visited(&position, (*map)->double_visited)
+			|| not_visited(&position, (*map)->visited_list)))
+			if (not_wall((*map)->map[position.x][position.y])
+				&& (*map)->map[position.x][position.y])
+				return (TRUE);
 	return (FALSE);
 }
 

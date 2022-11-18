@@ -6,7 +6,7 @@
 #    By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/25 16:42:02 by ssergiu           #+#    #+#              #
-#    Updated: 2022/11/18 11:25:31 by ssergiu          ###   ########.fr        #
+#    Updated: 2022/11/18 20:39:20 by ssergiu          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ FILES = ft_strlen \
 		ft_calloc \
 		ft_bzero \
 		ft_memcpy \
+		ft_memset \
 		ft_split \
 		ft_putstr_fd \
 		ft_putnbr_fd \

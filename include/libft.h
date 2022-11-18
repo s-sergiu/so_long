@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 17:05:23 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/18 11:38:18 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/18 20:39:56 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int					ft_strncmp(const char *s1, const char *s2, size_t n);
 void				*ft_calloc(size_t count, size_t size);
 void				ft_bzero(void *s, size_t n);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
+void				*ft_memset(void *b, int c, size_t len);
 char				**ft_split(char const *s, char c);
 void				ft_putstr_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
