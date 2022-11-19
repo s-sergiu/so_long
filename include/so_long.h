@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/30 02:13:15 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/18 20:40:49 by ssergiu          ###   ########.fr       */
+/*   Created: 2022/11/19 15:35:24 by ssergiu           #+#    #+#             */
+/*   Updated: 2022/11/19 15:35:26 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include "libft.h"
 # include <sys/errno.h>
 # include <string.h>
+# define WIDTH TILE * ft_strlen(*(*data)->map)
+# define HEIGHT TILE * ft_arrlength((*data)->map)
 # define P_SPRITE 64
 # define TILE 32
 
@@ -27,13 +29,22 @@ enum e_bool
 	TRUE
 };
 
+struct	s_tiles
+{
+	mlx_texture_t	*floor[10];
+};
+
 struct s_data
 {
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	mlx_texture_t	*tile_texture;
-	mlx_image_t		*tile_img;
+	mlx_image_t		*tile_floor;
+	mlx_image_t		*tile_wall;
+	mlx_image_t		*exit;
+	mlx_image_t		*collectible;
 	mlx_texture_t	*player;
+	mlx_texture_t	*game_icon;
 	mlx_image_t		*player_img;
 	int				player_dead;
 	char			*map_string;
@@ -61,10 +72,13 @@ struct s_position
 typedef struct s_position	t_position;
 typedef struct s_map		t_map;
 typedef struct s_data		t_data;
+typedef struct s_tiles		t_tiles;
 
 void		check_map_path(t_map *map);
 void		free_split(char **split);
 void		destroy_structure(t_map *map);
+void		game_loop(char *argv);
+void		init_tile_textures(t_tiles **tile);
 char		*read_map(char *map);
 int			map_has_errors(char *argv);
 int			not_valid_map_name(char *filename);
