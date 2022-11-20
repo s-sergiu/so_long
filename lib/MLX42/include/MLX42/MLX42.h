@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   MLX42.h                                            :+:      :+:    :+:   */
+/*   MLX42.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: W2Wizard <w2.wizzard@gmail.com>              +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 00:33:01 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2022/11/06 19:24:51 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/08/10 13:00:48 by lde-la-h      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ typedef struct mlx_image
 	mlx_instance_t*	instances;
 	int32_t			count;
 	bool			enabled;
+	void*			context;
 }	mlx_image_t;
 
 /**
@@ -313,7 +314,7 @@ void mlx_terminate(mlx_t* mlx);
  * 
  * @return The amount of time elapsed in seconds.
  */
-int32_t mlx_get_time(void);
+double mlx_get_time(void);
 
 //= Window/Monitor Functions
 

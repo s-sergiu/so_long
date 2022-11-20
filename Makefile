@@ -1,4 +1,5 @@
 NAME= so_long
+UNAME_S := $(shell uname -s)
 
 CYAN=\033[0;36m
 GREEN=\033[0;32m
@@ -22,17 +23,23 @@ OBJ= obj/main.o \
 	 obj/tiles.o \
 	 obj/old.o \
 
+MLX= obj/mlx/libmlx42.o
+MLX_DIR= lib/MLX42/
 LIBFT= obj/libft/libft.o
 LIBFT_DIR= src/libft
 NAME_H= include/so_long.h
 
+ifeq ($(UNAME_S),Linux)
+MLX_DIR= lib/MLX42_LINUX/
+MLX_FLAGS= -ldl -lglfw -pthread -lm
+endif
+ifeq ($(UNAME_S),Darwin)
+MLX_DIR= lib/MLX42/
+MLX_FLAGS= -lglfw -L ~/.brew/Cellar/glfw/3.3.8/lib
+endif
 
-$(NAME): $(LIBFT) $(OBJ) $(NAME_H)
-	$(CC) $(OBJ) $(GNL) $(LIBFT) lib/MLX42/libmlx42.a \
-	-lglfw -L ~/.brew/Cellar/glfw/3.3.8/lib -o $(NAME)
-
-#$(NAME): $(LIBFT) $(OBJ) $(NAME_H)
-#	$(CC) $(OBJ) $(GNL) $(LIBFT) -o $(NAME)
+$(NAME): $(LIBFT) $(OBJ) $(NAME_H) $(MLX)
+	$(CC) $(OBJ) $(GNL) $(LIBFT) $(MLX) $(MLX_FLAGS) -o $(NAME)
 
 obj/%.o: src/%.c
 	$(CC) -g -Wall -Wextra -Werror -c $< -o $@
@@ -45,15 +52,23 @@ $(LIBFT): $(LIBFT_DIR)/*.c
 	@cp $(LIBFT_DIR)/libft.a $(LIBFT)
 	@make fclean -C $(LIBFT_DIR)
 
+$(MLX): $(MLX_DIR)
+	@if  [ ! -d obj/mlx ]; then \
+		mkdir -p obj/mlx; \
+	fi
+	@make -C $(MLX_DIR)
+	@cp $(MLX_DIR)/libmlx42.a $(MLX)
+	@make fclean -C $(MLX_DIR)
+
 all: $(NAME)
 
 clean:
 	@echo "$(MAGENTA)Cleaning object files.. $(ENDCOLOR)"
-	@$(RM) $(OBJ) $(BONUS_OBJ) $(LIBFT)
+	@$(RM) $(OBJ) $(BONUS_OBJ) $(LIBFT) $(MLX)
 
 fclean: clean
 	@echo "$(MAGENTA)Cleaning all.. $(ENDCOLOR)"
-	@$(RM) $(NAME) $(BONUS_FILE)
+	@$(RM) $(NAME)
 
 re: clean all
 
