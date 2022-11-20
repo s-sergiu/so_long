@@ -30,11 +30,9 @@ LIBFT_DIR= src/libft
 NAME_H= include/so_long.h
 
 ifeq ($(UNAME_S),Linux)
-MLX_DIR= lib/MLX42_LINUX/
 MLX_FLAGS= -ldl -lglfw -pthread -lm
 endif
 ifeq ($(UNAME_S),Darwin)
-MLX_DIR= lib/MLX42/
 MLX_FLAGS= -lglfw -L ~/.brew/Cellar/glfw/3.3.8/lib
 endif
 
