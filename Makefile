@@ -20,6 +20,7 @@ OBJ= obj/main.o \
 	 obj/map_check.o \
 	 obj/draw_map.o \
 	 obj/tiles.o \
+	 obj/old.o \
 
 LIBFT= obj/libft/libft.o
 LIBFT_DIR= src/libft

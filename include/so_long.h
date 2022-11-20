@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 15:35:24 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/19 15:35:26 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/20 16:02:01 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,12 @@ enum e_bool
 	TRUE
 };
 
-struct	s_tiles
+struct	s_texture
 {
 	mlx_texture_t	*floor[10];
+	mlx_texture_t	*player_runleft[10];
+	mlx_texture_t	*player_runright[10];
+	mlx_texture_t	*walls[10];
 };
 
 struct s_data
@@ -44,11 +47,19 @@ struct s_data
 	mlx_image_t		*exit;
 	mlx_image_t		*collectible;
 	mlx_texture_t	*player;
+	struct s_idle_texture			*idle;
 	mlx_texture_t	*game_icon;
 	mlx_image_t		*player_img;
+	mlx_image_t		*player_box;
 	int				player_dead;
 	char			*map_string;
 	char			**map;
+};
+
+struct	s_idle_texture
+{
+	mlx_texture_t	*left[9];	
+	mlx_texture_t	*right[9];	
 };
 
 struct s_map
@@ -69,16 +80,18 @@ struct s_position
 	int	y;
 };
 
-typedef struct s_position	t_position;
-typedef struct s_map		t_map;
-typedef struct s_data		t_data;
-typedef struct s_tiles		t_tiles;
+typedef struct s_position		t_position;
+typedef struct s_map			t_map;
+typedef struct s_idle_texture	t_idle;
+typedef struct s_data			t_data;
+typedef struct s_texture		t_texture;
 
 void		check_map_path(t_map *map);
+void		draw_map(t_data **data);
 void		free_split(char **split);
 void		destroy_structure(t_map *map);
 void		game_loop(char *argv);
-void		init_tile_textures(t_tiles **tile);
+void		init_tile_textures(t_texture **tile);
 char		*read_map(char *map);
 int			map_has_errors(char *argv);
 int			not_valid_map_name(char *filename);
