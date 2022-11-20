@@ -6,18 +6,14 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 15:35:24 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/20 20:50:18 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/20 21:12:22 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# ifdef __APPLE__
-#  include "../lib/MLX42/include/MLX42/MLX42.h"
-# else
-#  include "../lib/MLX42_LINUX/include/MLX42/MLX42.h"
-# endif
+# include "../lib/MLX42/include/MLX42/MLX42.h"
 # include <fcntl.h>
 # include "libft.h"
 # include <sys/errno.h>
