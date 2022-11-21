@@ -23,7 +23,7 @@ OBJ= obj/main.o \
 	 obj/tiles.o \
 	 obj/old.o \
 
-MLX= obj/mlx/libmlx42.o
+MLX= lib/MLX42/libmlx42.a
 MLX_DIR= lib/MLX42/
 LIBFT= obj/libft/libft.o
 LIBFT_DIR= src/libft
@@ -55,8 +55,6 @@ $(MLX): $(MLX_DIR)
 		mkdir -p obj/mlx; \
 	fi
 	@make -C $(MLX_DIR)
-	@cp $(MLX_DIR)/libmlx42.a $(MLX)
-	@make fclean -C $(MLX_DIR)
 
 all: $(NAME)
 
