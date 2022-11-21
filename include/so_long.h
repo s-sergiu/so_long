@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 15:35:24 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/20 21:12:22 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/21 15:34:25 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@
 # define HEIGHT TILE * ft_arrlength((*data)->map)
 # define P_SPRITE 64
 # define TILE 32
+
+typedef struct s_position		t_position;
+typedef struct s_map			t_map;
+typedef struct s_idle_texture	t_idle;
+typedef struct s_run_texture	t_run;
+typedef struct s_data			t_data;
+typedef struct s_texture		t_texture;
 
 enum e_bool
 {
@@ -47,13 +54,20 @@ struct s_data
 	mlx_image_t		*exit;
 	mlx_image_t		*collectible;
 	mlx_texture_t	*player;
-	struct s_idle_texture			*idle;
+	t_idle			*idle;
+	t_run			*run;
 	mlx_texture_t	*game_icon;
 	mlx_image_t		*player_img;
 	mlx_image_t		*player_box;
 	int				player_dead;
 	char			*map_string;
 	char			**map;
+};
+
+struct	s_run_texture
+{
+	mlx_texture_t	*left[9];	
+	mlx_texture_t	*right[9];	
 };
 
 struct	s_idle_texture
@@ -79,12 +93,6 @@ struct s_position
 	int	x;
 	int	y;
 };
-
-typedef struct s_position		t_position;
-typedef struct s_map			t_map;
-typedef struct s_idle_texture	t_idle;
-typedef struct s_data			t_data;
-typedef struct s_texture		t_texture;
 
 void		check_map_path(t_map *map);
 void		draw_map(t_data **data);

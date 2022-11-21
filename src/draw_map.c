@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 09:37:33 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/20 17:25:55 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/21 15:32:22 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	add_player_box(t_data **data, int posx, int posy)
 
 void	add_player(t_data **data, int posx, int posy)
 {
-	(*data)->player = mlx_load_png("assets/player/idle/right/1.png");
+	(*data)->player = mlx_load_png("assets/player/idle/right/0.png");
 	(*data)->player_img = mlx_texture_to_image((*data)->mlx, (*data)->player);
 	mlx_delete_texture((*data)->player);
 	mlx_image_to_window((*data)->mlx, (*data)->player_img, posx, posy);
