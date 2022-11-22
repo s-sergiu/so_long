@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 09:37:33 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/22 02:14:22 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/22 02:37:23 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 void	add_player_box(t_data **data, int posx, int posy)
 {
-	(*data)->player_box = mlx_new_image((*data)->mlx, 32, 32);
-	ft_memset((*data)->player_box->pixels, 200, 32 * 32 * 4);
+	
+	(*data)->player_box = mlx_new_image((*data)->mlx, TILE, TILE);
+	ft_memset((*data)->player_box->pixels, 200, TILE * TILE * sizeof(uint8_t));
 	mlx_image_to_window((*data)->mlx, (*data)->player_box, posx, posy);
 }
 
@@ -48,7 +49,6 @@ void	put_tile(t_data **data)
 
 	i = -1;
 	j = -1;
-	init_tile_textures(data);
 	tiles = (*data)->tiles;
 	(*data)->tile_wall = mlx_texture_to_image((*data)->mlx, tiles->wall[0]);
 	(*data)->tile_floor = mlx_texture_to_image((*data)->mlx, tiles->floor[0]);

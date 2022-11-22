@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 15:35:24 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/22 02:05:32 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/22 02:37:12 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <string.h>
 # define WIDTH TILE * ft_strlen(*(*data)->map)
 # define HEIGHT TILE * ft_arrlength((*data)->map)
-# define P_SPRITE 64
+# define SPRITE 64
 # define TILE 32
 
 typedef struct s_position		t_position;

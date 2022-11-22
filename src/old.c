@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 13:57:53 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/22 01:08:26 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/22 02:39:27 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@ void	run_left_animation(void *param)
 	mlx_image_t		*player[8];
 	static int		frames;
 	static int		i;
+	uint8_t			*player_pixels;
 
 	data = param;
+	player_pixels = data->player_img->pixels;
 	if (frames == 0 || frames % 7 == 0)
 	{
 		player[i] = mlx_texture_to_image(data->mlx, data->run->left[i]);
-		memcpy(data->player_img->pixels, player[i]->pixels, 64 * 64 * 4);
+		memcpy(player_pixels, player[i]->pixels, SPRITE * SPRITE * sizeof(uint8_t));
 		if(i == 7)
 		{
 			frames = -1;
@@ -46,7 +48,7 @@ void	run_right_animation(void *param)
 	if (frames == 0 || frames % 7 == 0)
 	{
 		player[i] = mlx_texture_to_image(data->mlx, data->run->right[i]);
-		memcpy(data->player_img->pixels, player[i]->pixels, 64 * 64 * 4);
+		memcpy(data->player_img->pixels, player[i]->pixels, SPRITE * SPRITE * sizeof(uint8_t));
 		if(i == 7)
 		{
 			frames = -1;
@@ -68,7 +70,7 @@ void	idle_animation(void *param)
 	if (frames == 0 || frames % 7 == 0)
 	{
 		player[i] = mlx_texture_to_image(data->mlx, data->idle->right[i]);
-		memcpy(data->player_img->pixels, player[i]->pixels, 64 * 64 * 4);
+		memcpy(data->player_img->pixels, player[i]->pixels, SPRITE * SPRITE * sizeof(uint8_t));
 		if(i == 7)
 		{
 			frames = -1;
@@ -119,6 +121,7 @@ void	hook(void *param)
 
 void	init_game_data(t_data **data, char *argv)
 {
+	init_tile_textures(data);
 	init_idle_texture(data);
 	init_run_texture(data);
 	(*data)->map_string = read_map(argv);
