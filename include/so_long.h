@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 15:35:24 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/21 18:27:17 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/22 02:05:32 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
 
 typedef struct s_position		t_position;
 typedef struct s_map			t_map;
+typedef struct s_texture		t_texture;
 typedef struct s_idle_texture	t_idle;
 typedef struct s_run_texture	t_run;
 typedef struct s_data			t_data;
-typedef struct s_texture		t_texture;
 
 enum e_bool
 {
@@ -38,10 +38,8 @@ enum e_bool
 
 struct	s_texture
 {
-	mlx_texture_t	*floor[10];
-	mlx_texture_t	*player_runleft[10];
-	mlx_texture_t	*player_runright[10];
-	mlx_texture_t	*walls[10];
+	mlx_texture_t	*floor[9];
+	mlx_texture_t	*wall[6];
 };
 
 struct s_data
@@ -56,6 +54,7 @@ struct s_data
 	mlx_texture_t	*player;
 	t_idle			*idle;
 	t_run			*run;
+	t_texture		*tiles;
 	mlx_texture_t	*game_icon;
 	mlx_image_t		*player_img;
 	mlx_image_t		*player_box;
@@ -99,7 +98,9 @@ void		draw_map(t_data **data);
 void		free_split(char **split);
 void		destroy_structure(t_map *map);
 void		game_loop(char *argv);
-void		init_tile_textures(t_texture **tile);
+void		init_tile_textures(t_data **data);
+void		init_run_texture(t_data **data);
+void		init_idle_texture(t_data **data);
 char		*read_map(char *map);
 int			map_has_errors(char *argv);
 int			not_valid_map_name(char *filename);

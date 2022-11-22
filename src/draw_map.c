@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 09:37:33 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/21 15:32:22 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/22 02:14:22 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	put_floor_type(t_data **data, char c, int width, int height)
 	else 
 		mlx_image_to_window((*data)->mlx, (*data)->tile_floor, width, height);
 }
+
 void	put_tile(t_data **data)
 {
 	t_texture *tiles;
@@ -47,12 +48,10 @@ void	put_tile(t_data **data)
 
 	i = -1;
 	j = -1;
-	tiles = NULL;
-	init_tile_textures(&tiles);
-	(*data)->tile_wall = mlx_texture_to_image((*data)->mlx, tiles->floor[7]);
-	(*data)->tile_floor = mlx_texture_to_image((*data)->mlx, tiles->floor[3]);
-	(*data)->collectible = mlx_texture_to_image((*data)->mlx, tiles->floor[6]);
-	(*data)->exit = mlx_texture_to_image((*data)->mlx, tiles->floor[5]);
+	init_tile_textures(data);
+	tiles = (*data)->tiles;
+	(*data)->tile_wall = mlx_texture_to_image((*data)->mlx, tiles->wall[0]);
+	(*data)->tile_floor = mlx_texture_to_image((*data)->mlx, tiles->floor[0]);
 	width = ft_strlen(*(*data)->map);
 	height = ft_arrlength((*data)->map);
 	mlx_image_to_window((*data)->mlx, (*data)->tile_wall, 0, 0);
@@ -60,24 +59,8 @@ void	put_tile(t_data **data)
 	{
 		while (++j < width)
 		{
-			if ((*data)->map[i][j] == 'P')
-			{
-				mlx_image_to_window((*data)->mlx, (*data)->tile_floor, chunk, chunk_h);
-				add_player_box(data, chunk, chunk_h);
-				add_player(data, chunk - 16, chunk_h - 20);
-			}
-			else if ((*data)->map[i][j] == '1')
+			if ((*data)->map[i][j] == '1')
 				mlx_image_to_window((*data)->mlx, (*data)->tile_wall, chunk, chunk_h);
-			else if ((*data)->map[i][j] == 'E')
-			{
-				mlx_image_to_window((*data)->mlx, (*data)->tile_floor, chunk, chunk_h);
-				mlx_image_to_window((*data)->mlx, (*data)->exit, chunk, chunk_h);
-			}
-			else if ((*data)->map[i][j] == 'C')
-			{
-				mlx_image_to_window((*data)->mlx, (*data)->tile_floor, chunk, chunk_h);
-				mlx_image_to_window((*data)->mlx, (*data)->collectible, chunk, chunk_h);
-			}
 			else
 				mlx_image_to_window((*data)->mlx, (*data)->tile_floor, chunk, chunk_h);
 			chunk += TILE;
