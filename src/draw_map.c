@@ -6,12 +6,11 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 09:37:33 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/23 18:31:35 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/23 20:17:17 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
-#include <stdio.h>
 
 void	add_player_box(t_data **data, int posx, int posy)
 {
@@ -31,9 +30,9 @@ void	add_player(t_data **data, int posx, int posy)
 void	put_floor_type(t_data **data, char c, int width, int height)
 {
 	if (c == '1')
-		mlx_image_to_window((*data)->mlx, (*data)->tile_wall, width, height);
+		mlx_image_to_window((*data)->mlx, (*data)->tiles->wall_img[0], width, height);
 	else 
-		mlx_image_to_window((*data)->mlx, (*data)->tile_floor, width, height);
+		mlx_image_to_window((*data)->mlx, (*data)->tiles->floor_img[0], width, height);
 }
 
 void	put_tile(t_data **data)
@@ -52,10 +51,7 @@ void	put_tile(t_data **data)
 	{
 		while ((*data)->map[i][++j])
 		{
-			if ((*data)->map[i][j] == '1')
-				mlx_image_to_window((*data)->mlx, tiles->wall_img[0], chunk, chunk_h);
-			else
-				mlx_image_to_window((*data)->mlx, tiles->floor_img[2], chunk, chunk_h);
+			put_floor_type(data, (*data)->map[i][j], chunk, chunk_h);
 			chunk += TILE;
 		}
 		chunk_h += TILE;

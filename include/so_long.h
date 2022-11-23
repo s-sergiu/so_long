@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 15:35:24 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/23 04:57:13 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/23 19:18:35 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <fcntl.h>
 # include "libft.h"
 # include <sys/errno.h>
+# include <stdio.h>
 # include <string.h>
 # define WIDTH TILE * ft_strlen(*(*data)->map)
 # define HEIGHT TILE * ft_arrlength((*data)->map)
@@ -69,16 +70,16 @@ struct	s_run_texture
 {
 	mlx_texture_t	*left[9];	
 	mlx_texture_t	*right[9];	
-	mlx_image_t		*right_img[9];	
-	mlx_image_t		*left_img[9];	
+	mlx_image_t		*right_run[9];	
+	mlx_image_t		*left_run[9];	
 };
 
 struct	s_idle_texture
 {
 	mlx_texture_t	*left[9];	
 	mlx_texture_t	*right[9];	
-	mlx_image_t		*right_img[9];	
-	mlx_image_t		*left_img[9];	
+	mlx_image_t		*right_idle[9];	
+	mlx_image_t		*left_idle[9];	
 };
 
 struct s_map
