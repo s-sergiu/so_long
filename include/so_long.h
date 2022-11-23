@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 15:35:24 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/22 02:05:32 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/23 04:57:13 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ struct	s_texture
 {
 	mlx_texture_t	*floor[9];
 	mlx_texture_t	*wall[6];
+	mlx_image_t		*floor_img[9];
+	mlx_image_t		*wall_img[6];
 };
 
 struct s_data
@@ -67,12 +69,16 @@ struct	s_run_texture
 {
 	mlx_texture_t	*left[9];	
 	mlx_texture_t	*right[9];	
+	mlx_image_t		*right_img[9];	
+	mlx_image_t		*left_img[9];	
 };
 
 struct	s_idle_texture
 {
 	mlx_texture_t	*left[9];	
 	mlx_texture_t	*right[9];	
+	mlx_image_t		*right_img[9];	
+	mlx_image_t		*left_img[9];	
 };
 
 struct s_map

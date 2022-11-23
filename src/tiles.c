@@ -6,11 +6,55 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 08:44:08 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/22 02:00:32 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/23 04:57:13 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
+
+void	delete_tile_textures(t_data **data)
+{
+	t_texture	*tiles;
+
+	tiles = (*data)->tiles;
+	mlx_delete_texture(tiles->floor[0]);
+	mlx_delete_texture(tiles->floor[1]);
+	mlx_delete_texture(tiles->floor[2]);
+	mlx_delete_texture(tiles->floor[3]);
+	mlx_delete_texture(tiles->floor[4]);
+	mlx_delete_texture(tiles->floor[5]);
+	mlx_delete_texture(tiles->floor[6]);
+	mlx_delete_texture(tiles->floor[7]);
+	mlx_delete_texture(tiles->wall[0]);
+	mlx_delete_texture(tiles->wall[1]);
+	mlx_delete_texture(tiles->wall[2]);
+	mlx_delete_texture(tiles->wall[3]);
+	mlx_delete_texture(tiles->wall[4]);
+
+}
+
+void	load_tile_images(t_data **data)
+{
+	t_texture *tiles;
+
+	tiles = (*data)->tiles;
+	tiles->floor_img[0] = mlx_texture_to_image((*data)->mlx, tiles->floor[0]);
+	tiles->floor_img[1] = mlx_texture_to_image((*data)->mlx, tiles->floor[1]);
+	tiles->floor_img[2] = mlx_texture_to_image((*data)->mlx, tiles->floor[2]);
+	tiles->floor_img[3] = mlx_texture_to_image((*data)->mlx, tiles->floor[3]);
+	tiles->floor_img[4] = mlx_texture_to_image((*data)->mlx, tiles->floor[4]);
+	tiles->floor_img[5] = mlx_texture_to_image((*data)->mlx, tiles->floor[5]);
+	tiles->floor_img[6] = mlx_texture_to_image((*data)->mlx, tiles->floor[6]);
+	tiles->floor_img[7] = mlx_texture_to_image((*data)->mlx, tiles->floor[7]);
+	tiles->floor_img[8] = NULL;
+	tiles->wall_img[0] = mlx_texture_to_image((*data)->mlx, tiles->wall[0]);
+	tiles->wall_img[1] = mlx_texture_to_image((*data)->mlx, tiles->wall[1]);
+	tiles->wall_img[2] = mlx_texture_to_image((*data)->mlx, tiles->wall[2]);
+	tiles->wall_img[3] = mlx_texture_to_image((*data)->mlx, tiles->wall[3]);
+	tiles->wall_img[4] = mlx_texture_to_image((*data)->mlx, tiles->wall[4]);
+	tiles->wall_img[5] = NULL;
+}
+
 void init_tile_textures(t_data **data)
 {
 	t_texture *tiles;
@@ -32,6 +76,8 @@ void init_tile_textures(t_data **data)
 	tiles->wall[3] = mlx_load_png("assets/tiles/wall/3.png");
 	tiles->wall[4] = mlx_load_png("assets/tiles/wall/4.png");
 	tiles->wall[5] = NULL;
+	load_tile_images(data);
+	delete_tile_textures(data);
 }
 
 void	init_run_texture(t_data **data)
@@ -58,6 +104,44 @@ void	init_run_texture(t_data **data)
 	run->left[6] = mlx_load_png("assets/player/run/left/6.png");
 	run->left[7] = mlx_load_png("assets/player/run/left/7.png");
 	run->left[8] = NULL;
+	run->right_img[0] = mlx_texture_to_image((*data)->mlx, run->right[0]);
+	run->right_img[1] = mlx_texture_to_image((*data)->mlx, run->right[1]);
+	run->right_img[2] = mlx_texture_to_image((*data)->mlx, run->right[2]);
+	run->right_img[3] = mlx_texture_to_image((*data)->mlx, run->right[3]);
+	run->right_img[4] = mlx_texture_to_image((*data)->mlx, run->right[4]);
+	run->right_img[5] = mlx_texture_to_image((*data)->mlx, run->right[5]);
+	run->right_img[6] = mlx_texture_to_image((*data)->mlx, run->right[6]);
+	run->right_img[7] = mlx_texture_to_image((*data)->mlx, run->right[7]);
+	run->right_img[8] = mlx_texture_to_image((*data)->mlx, run->right[8]);
+	run->right_img[9] = NULL;
+	run->left_img[0] = mlx_texture_to_image((*data)->mlx, run->left[0]);
+	run->left_img[1] = mlx_texture_to_image((*data)->mlx, run->left[1]);
+	run->left_img[2] = mlx_texture_to_image((*data)->mlx, run->left[2]);
+	run->left_img[3] = mlx_texture_to_image((*data)->mlx, run->left[3]);
+	run->left_img[4] = mlx_texture_to_image((*data)->mlx, run->left[4]);
+	run->left_img[5] = mlx_texture_to_image((*data)->mlx, run->left[5]);
+	run->left_img[6] = mlx_texture_to_image((*data)->mlx, run->left[6]);
+	run->left_img[7] = mlx_texture_to_image((*data)->mlx, run->left[7]);
+	run->left_img[8] = mlx_texture_to_image((*data)->mlx, run->left[8]);
+	run->left_img[9] = NULL;
+	mlx_delete_texture(run->right[0]);
+	mlx_delete_texture(run->right[1]);
+	mlx_delete_texture(run->right[2]);
+	mlx_delete_texture(run->right[3]);
+	mlx_delete_texture(run->right[4]);
+	mlx_delete_texture(run->right[5]);
+	mlx_delete_texture(run->right[6]);
+	mlx_delete_texture(run->right[7]);
+	mlx_delete_texture(run->right[8]);
+	mlx_delete_texture(run->left[0]);
+	mlx_delete_texture(run->left[1]);
+	mlx_delete_texture(run->left[2]);
+	mlx_delete_texture(run->left[3]);
+	mlx_delete_texture(run->left[4]);
+	mlx_delete_texture(run->left[5]);
+	mlx_delete_texture(run->left[6]);
+	mlx_delete_texture(run->left[7]);
+	mlx_delete_texture(run->left[8]);
 }
 
 void	init_idle_texture(t_data **data)
@@ -84,4 +168,42 @@ void	init_idle_texture(t_data **data)
 	idle->left[6] = mlx_load_png("assets/player/idle/left/6.png");
 	idle->left[7] = mlx_load_png("assets/player/idle/left/7.png");
 	idle->left[8] = NULL;
+	idle->right_img[0] = mlx_texture_to_image((*data)->mlx, idle->right[0]);
+	idle->right_img[1] = mlx_texture_to_image((*data)->mlx, idle->right[1]);
+	idle->right_img[2] = mlx_texture_to_image((*data)->mlx, idle->right[2]);
+	idle->right_img[3] = mlx_texture_to_image((*data)->mlx, idle->right[3]);
+	idle->right_img[4] = mlx_texture_to_image((*data)->mlx, idle->right[4]);
+	idle->right_img[5] = mlx_texture_to_image((*data)->mlx, idle->right[5]);
+	idle->right_img[6] = mlx_texture_to_image((*data)->mlx, idle->right[6]);
+	idle->right_img[7] = mlx_texture_to_image((*data)->mlx, idle->right[7]);
+	idle->right_img[8] = mlx_texture_to_image((*data)->mlx, idle->right[8]);
+	idle->right_img[9] = NULL;
+	idle->left_img[0] = mlx_texture_to_image((*data)->mlx, idle->left[0]);
+	idle->left_img[1] = mlx_texture_to_image((*data)->mlx, idle->left[1]);
+	idle->left_img[2] = mlx_texture_to_image((*data)->mlx, idle->left[2]);
+	idle->left_img[3] = mlx_texture_to_image((*data)->mlx, idle->left[3]);
+	idle->left_img[4] = mlx_texture_to_image((*data)->mlx, idle->left[4]);
+	idle->left_img[5] = mlx_texture_to_image((*data)->mlx, idle->left[5]);
+	idle->left_img[6] = mlx_texture_to_image((*data)->mlx, idle->left[6]);
+	idle->left_img[7] = mlx_texture_to_image((*data)->mlx, idle->left[7]);
+	idle->left_img[8] = mlx_texture_to_image((*data)->mlx, idle->left[8]);
+	idle->left_img[9] = NULL;
+	mlx_delete_texture(idle->right[0]);
+	mlx_delete_texture(idle->right[1]);
+	mlx_delete_texture(idle->right[2]);
+	mlx_delete_texture(idle->right[3]);
+	mlx_delete_texture(idle->right[4]);
+	mlx_delete_texture(idle->right[5]);
+	mlx_delete_texture(idle->right[6]);
+	mlx_delete_texture(idle->right[7]);
+	mlx_delete_texture(idle->right[8]);
+	mlx_delete_texture(idle->left[0]);
+	mlx_delete_texture(idle->left[1]);
+	mlx_delete_texture(idle->left[2]);
+	mlx_delete_texture(idle->left[3]);
+	mlx_delete_texture(idle->left[4]);
+	mlx_delete_texture(idle->left[5]);
+	mlx_delete_texture(idle->left[6]);
+	mlx_delete_texture(idle->left[7]);
+	mlx_delete_texture(idle->left[8]);
 }

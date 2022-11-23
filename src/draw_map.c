@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 09:37:33 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/22 02:14:22 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/23 04:59:19 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 void	add_player_box(t_data **data, int posx, int posy)
 {
-	(*data)->player_box = mlx_new_image((*data)->mlx, 32, 32);
-	ft_memset((*data)->player_box->pixels, 200, 32 * 32 * 4);
+	(*data)->player_box = mlx_new_image((*data)->mlx, TILE, TILE);
+	ft_memset((*data)->player_box->pixels, 200, TILE * TILE * 4);
 	mlx_image_to_window((*data)->mlx, (*data)->player_box, posx, posy);
 }
 
@@ -43,26 +43,19 @@ void	put_tile(t_data **data)
 	int	chunk_h = 0;
 	int i;
 	int j;
-	int	width;
-	int	height;
 
 	i = -1;
 	j = -1;
-	init_tile_textures(data);
 	tiles = (*data)->tiles;
-	(*data)->tile_wall = mlx_texture_to_image((*data)->mlx, tiles->wall[0]);
-	(*data)->tile_floor = mlx_texture_to_image((*data)->mlx, tiles->floor[0]);
-	width = ft_strlen(*(*data)->map);
-	height = ft_arrlength((*data)->map);
-	mlx_image_to_window((*data)->mlx, (*data)->tile_wall, 0, 0);
-	while (++i < height)
+	mlx_image_to_window((*data)->mlx, tiles->wall_img[0], 0, 0);
+	while ((*data)->map[++i])
 	{
-		while (++j < width)
+		while ((*data)->map[i][++j])
 		{
 			if ((*data)->map[i][j] == '1')
-				mlx_image_to_window((*data)->mlx, (*data)->tile_wall, chunk, chunk_h);
+				mlx_image_to_window((*data)->mlx, tiles->wall_img[0], chunk, chunk_h);
 			else
-				mlx_image_to_window((*data)->mlx, (*data)->tile_floor, chunk, chunk_h);
+				mlx_image_to_window((*data)->mlx, tiles->floor_img[2], chunk, chunk_h);
 			chunk += TILE;
 		}
 		chunk_h += TILE;
@@ -74,8 +67,12 @@ void	put_tile(t_data **data)
 
 void	draw_map(t_data **data)
 {
+	init_idle_texture(data);
+	init_run_texture(data);
 	ft_memset((*data)->img->pixels, 255, WIDTH * HEIGHT * 4);
 	mlx_image_to_window((*data)->mlx, (*data)->img, 0, 0);
 	put_tile(data);
+	add_player_box(data, 32, 32);
+	add_player(data, 32 , 32);
 }
 

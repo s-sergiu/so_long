@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 13:57:53 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/22 01:08:26 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/23 04:57:13 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,14 +119,12 @@ void	hook(void *param)
 
 void	init_game_data(t_data **data, char *argv)
 {
-	init_idle_texture(data);
-	init_run_texture(data);
 	(*data)->map_string = read_map(argv);
 	(*data)->map = ft_split((*data)->map_string, '\n');
 	free((*data)->map_string);
-	mlx_set_setting(MLX_STRETCH_IMAGE, true);
 	(*data)->mlx = mlx_init(WIDTH, HEIGHT, "so_long", true);
 	(*data)->img = mlx_new_image((*data)->mlx, WIDTH, HEIGHT);
+	init_tile_textures(data);
 }
 
 void	game_loop(char *argv)
