@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 09:37:33 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/23 04:59:19 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/23 18:31:35 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,5 @@ void	draw_map(t_data **data)
 	ft_memset((*data)->img->pixels, 255, WIDTH * HEIGHT * 4);
 	mlx_image_to_window((*data)->mlx, (*data)->img, 0, 0);
 	put_tile(data);
-	add_player_box(data, 32, 32);
-	add_player(data, 32 , 32);
 }
 

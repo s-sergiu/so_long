@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 08:44:08 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/23 04:57:13 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/23 18:31:01 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,7 @@ void	init_run_texture(t_data **data)
 	run->right_img[5] = mlx_texture_to_image((*data)->mlx, run->right[5]);
 	run->right_img[6] = mlx_texture_to_image((*data)->mlx, run->right[6]);
 	run->right_img[7] = mlx_texture_to_image((*data)->mlx, run->right[7]);
-	run->right_img[8] = mlx_texture_to_image((*data)->mlx, run->right[8]);
-	run->right_img[9] = NULL;
+	run->right_img[8] = NULL;
 	run->left_img[0] = mlx_texture_to_image((*data)->mlx, run->left[0]);
 	run->left_img[1] = mlx_texture_to_image((*data)->mlx, run->left[1]);
 	run->left_img[2] = mlx_texture_to_image((*data)->mlx, run->left[2]);
@@ -122,8 +121,7 @@ void	init_run_texture(t_data **data)
 	run->left_img[5] = mlx_texture_to_image((*data)->mlx, run->left[5]);
 	run->left_img[6] = mlx_texture_to_image((*data)->mlx, run->left[6]);
 	run->left_img[7] = mlx_texture_to_image((*data)->mlx, run->left[7]);
-	run->left_img[8] = mlx_texture_to_image((*data)->mlx, run->left[8]);
-	run->left_img[9] = NULL;
+	run->left_img[8] = NULL;
 	mlx_delete_texture(run->right[0]);
 	mlx_delete_texture(run->right[1]);
 	mlx_delete_texture(run->right[2]);
@@ -176,8 +174,7 @@ void	init_idle_texture(t_data **data)
 	idle->right_img[5] = mlx_texture_to_image((*data)->mlx, idle->right[5]);
 	idle->right_img[6] = mlx_texture_to_image((*data)->mlx, idle->right[6]);
 	idle->right_img[7] = mlx_texture_to_image((*data)->mlx, idle->right[7]);
-	idle->right_img[8] = mlx_texture_to_image((*data)->mlx, idle->right[8]);
-	idle->right_img[9] = NULL;
+	idle->right_img[8] = NULL;
 	idle->left_img[0] = mlx_texture_to_image((*data)->mlx, idle->left[0]);
 	idle->left_img[1] = mlx_texture_to_image((*data)->mlx, idle->left[1]);
 	idle->left_img[2] = mlx_texture_to_image((*data)->mlx, idle->left[2]);
@@ -186,8 +183,7 @@ void	init_idle_texture(t_data **data)
 	idle->left_img[5] = mlx_texture_to_image((*data)->mlx, idle->left[5]);
 	idle->left_img[6] = mlx_texture_to_image((*data)->mlx, idle->left[6]);
 	idle->left_img[7] = mlx_texture_to_image((*data)->mlx, idle->left[7]);
-	idle->left_img[8] = mlx_texture_to_image((*data)->mlx, idle->left[8]);
-	idle->left_img[9] = NULL;
+	idle->left_img[8] = NULL;
 	mlx_delete_texture(idle->right[0]);
 	mlx_delete_texture(idle->right[1]);
 	mlx_delete_texture(idle->right[2]);
