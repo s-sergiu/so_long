@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 15:35:24 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/23 19:18:35 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/24 14:50:21 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ struct s_data
 	mlx_image_t		*tile_wall;
 	mlx_image_t		*exit;
 	mlx_image_t		*collectible;
+	mlx_image_t		**collectibles;
 	mlx_texture_t	*player;
 	t_idle			*idle;
 	t_run			*run;
@@ -61,7 +62,7 @@ struct s_data
 	mlx_texture_t	*game_icon;
 	mlx_image_t		*player_img;
 	mlx_image_t		*player_box;
-	int				player_dead;
+	int				coll_count;
 	char			*map_string;
 	char			**map;
 };
@@ -100,6 +101,7 @@ struct s_position
 	int	y;
 };
 
+int			same_coords(t_position *player, t_position *exit);
 void		check_map_path(t_map *map);
 void		draw_map(t_data **data);
 void		free_split(char **split);
@@ -108,6 +110,9 @@ void		game_loop(char *argv);
 void		init_tile_textures(t_data **data);
 void		init_run_texture(t_data **data);
 void		init_idle_texture(t_data **data);
+void		destroy_run_structure(t_data **data);
+void		destroy_idle_structure(t_data **data);
+void		destroy_tile_structure(t_data **data);
 char		*read_map(char *map);
 int			map_has_errors(char *argv);
 int			not_valid_map_name(char *filename);

@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 08:44:08 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/23 20:05:35 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/24 16:11:20 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,14 @@ void	load_run_images(t_data **data)
 	run->left_run[8] = NULL;
 }
 
+void	destroy_run_structure(t_data **data)
+{
+	t_run	*image;
+
+	image = (*data)->run;
+	free(image);
+}
+
 void	load_idle_images(t_data **data)
 {
 	t_idle	*idle;
@@ -128,6 +136,14 @@ void	load_idle_images(t_data **data)
 	idle->left_idle[8] = NULL;
 }
 
+void	destroy_idle_structure(t_data **data)
+{
+	t_idle	*image;
+
+	image = (*data)->idle;
+	free(image);
+}
+
 void	load_tile_images(t_data **data)
 {
 	t_texture	*tiles;
@@ -148,6 +164,14 @@ void	load_tile_images(t_data **data)
 	tiles->wall_img[3] = mlx_texture_to_image((*data)->mlx, tiles->wall[3]);
 	tiles->wall_img[4] = mlx_texture_to_image((*data)->mlx, tiles->wall[4]);
 	tiles->wall_img[5] = NULL;
+}
+
+void	destroy_tile_structure(t_data **data)
+{
+	t_texture	*image;
+
+	image = (*data)->tiles;
+	free(image);
 }
 
 void init_tile_textures(t_data **data)
