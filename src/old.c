@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 13:57:53 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/24 16:08:57 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/25 05:00:07 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,15 @@ int	get_collectible_count(char *map)
 
 void	init_game_data(t_data **data, char *argv)
 {
+	int count;
 	(*data)->map_string = read_map(argv);
-	(*data)->coll_count = get_collectible_count((*data)->map_string);
+	count = get_collectible_count((*data)->map_string);
+	(*data)->collectibles = (mlx_image_t **)malloc(sizeof(mlx_image_t *) * count);
+	(*data)->collectible_count = (char *)malloc(sizeof(char) * count);
 	(*data)->map = ft_split((*data)->map_string, '\n');
 	(*data)->mlx = mlx_init(WIDTH, HEIGHT, "so_long", true);
 	(*data)->img = mlx_new_image((*data)->mlx, WIDTH, HEIGHT);
-	free((*data)->map_string);
+	draw_map(data);
 }
 
 void	destroy_and_free(t_data **data)
@@ -57,23 +60,24 @@ int	is_valid_move(t_data *data, int x, int y)
 	return (0);
 }
 
-//int	same_images(mlx_image_t *player, mlx_image_t *exit)
-//{
-//	if (player->instances[0].x == exit->instances[0].x && 
-//		player->instances[0].y == exit->instances[0].y)
-//		return (TRUE);
-//	return (FALSE);
-//}
-//
-//void	check_for_collectibles(t_data **data)
-//{
-//	
-//	if(same_images((*data)->player_box, (*data)->collectibles[i]))
-//	{
-//		mlx_delete_image((*data)->mlx, (*data)->collectibles[number]);	
-//		mark_position_as_zero;
-//	}
-//}
+void	player_is_on_colectible(t_data **data)
+{
+	mlx_instance_t	*player;
+	int posx;
+	int posy;
+	static int i;
+
+	player = (*data)->player_box->instances;
+	posx = player[0].x / 32;
+	posy = player[0].y / 32;
+	printf("player y:%d,x:%d\n", posy, posx);
+	printf("%c\n", (*data)->map[posy][posx]);
+	if ((*data)->map[posy][posx] == 'C')
+	{
+		(*data)->map[posy][posx] = '0';
+		mlx_delete_image((*data)->mlx, (*data)->collectibles[i++]);
+	}
+}
 
 void	keyhook(mlx_key_data_t keydata, void *param)
 {
@@ -118,7 +122,7 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 			player->instances[0].x += 1 * TILE;
 		}
 	}
-//	check_for_collectibles(&data);
+	player_is_on_colectible(&data);
 }
 
 void	game_loop(char *argv)
@@ -126,10 +130,8 @@ void	game_loop(char *argv)
 	t_data *data;
 	
 	init_game_data(&data, argv);
-	data->collectibles = (mlx_image_t **)malloc(sizeof(mlx_image_t *) * data->coll_count);
 //	mlx_loop_hook(data->mlx, &hook, data);
 	mlx_key_hook(data->mlx, keyhook, data);
-	draw_map(&data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
 }

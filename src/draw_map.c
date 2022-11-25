@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 09:37:33 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/24 14:41:11 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/25 04:44:47 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ void	put_collectable(t_data **data, int width, int height)
 	tiles = mlx_load_png("assets/tiles/other/35.png");
 	(*data)->collectibles[i] = mlx_texture_to_image((*data)->mlx, tiles);
 	if ((*data)->map[height][width] == 'C')
-		mlx_image_to_window((*data)->mlx, ((*data)->collectibles)[i], width * TILE, height * TILE);
+	{
+		printf("i:%d map at %d,%d is %c\n", i, height, width, (*data)->map[height][width]);
+		mlx_image_to_window((*data)->mlx, ((*data)->collectibles)[i++], width * TILE, height * TILE);
+	}
 	mlx_delete_texture(tiles);
 }
 
