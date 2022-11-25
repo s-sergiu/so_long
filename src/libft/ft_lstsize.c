@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/30 06:57:33 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/25 20:44:56 by ssergiu          ###   ########.fr       */
+/*   Created: 2022/04/23 11:59:58 by ssergiu           #+#    #+#             */
+/*   Updated: 2022/11/25 08:27:29 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "../../include/libft.h"
 
-size_t	ft_arrlength(char **string)
+int	ft_lstsize(t_list *lst)
 {
-	size_t	i;	
+	int		i;
+	t_list	*tmp;
 
+	tmp = lst;
 	i = 0;
-	while (string[i])
-		i++;
-	return (i);
-}
-
-int	main(int argc, char **argv)
-{
-	if (argc != 2)
-		return (print_usage());
-	else
+	while (tmp)
 	{
-		if (map_has_errors(argv[1]))
-			write(1, "Map has errors, exiting..\n", 26);
-		else
-			game_loop(argv[1]);
+		tmp = tmp->next;
+		i++;
 	}
-	return (FALSE);
+	return (i);
 }

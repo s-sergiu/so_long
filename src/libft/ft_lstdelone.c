@@ -1,37 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/30 06:57:33 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/25 20:44:56 by ssergiu          ###   ########.fr       */
+/*   Created: 2022/04/27 00:16:16 by ssergiu           #+#    #+#             */
+/*   Updated: 2022/11/25 08:51:32 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "../../include/libft.h"
 
-size_t	ft_arrlength(char **string)
+void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
-	size_t	i;	
-
-	i = 0;
-	while (string[i])
-		i++;
-	return (i);
-}
-
-int	main(int argc, char **argv)
-{
-	if (argc != 2)
-		return (print_usage());
-	else
-	{
-		if (map_has_errors(argv[1]))
-			write(1, "Map has errors, exiting..\n", 26);
-		else
-			game_loop(argv[1]);
-	}
-	return (FALSE);
+	del(lst->position);
+	lst->next = NULL;
+	free(lst);
 }
