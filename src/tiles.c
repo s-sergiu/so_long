@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 08:44:08 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/25 11:31:49 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/26 00:17:40 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,11 +175,11 @@ void	destroy_tile_structure(t_data **data)
 	free(image);
 }
 
-void init_tile_textures(t_data **data)
+void	init_tile_textures(t_data **data)
 {
 	t_texture	*tiles;
 
-	(*data)->tiles  = (t_texture *)malloc(sizeof(t_texture));
+	(*data)->tiles = (t_texture *)malloc(sizeof(t_texture));
 	tiles = (*data)->tiles;
 	tiles->floor[0] = mlx_load_png("assets/tiles/floor/0.png");
 	tiles->floor[1] = mlx_load_png("assets/tiles/floor/1.png");
@@ -198,14 +198,13 @@ void init_tile_textures(t_data **data)
 	tiles->wall[5] = NULL;
 	load_tile_images(data);
 	delete_tile_textures(data);
-	
 }
 
 void	init_run_texture(t_data **data)
 {
-	t_run *run;
+	t_run	*run;
 
-	(*data)->run  = (t_run *)malloc(sizeof(t_run));
+	(*data)->run = (t_run *)malloc(sizeof(t_run));
 	run = (*data)->run;
 	run->right[0] = mlx_load_png("assets/player/run/right/0.png");
 	run->right[1] = mlx_load_png("assets/player/run/right/1.png");
@@ -231,10 +230,10 @@ void	init_run_texture(t_data **data)
 
 void	init_idle_texture(t_data **data)
 {
-	t_idle *idle;
-	
+	t_idle	*idle;
+
 	(*data)->idle = (t_idle *)malloc(sizeof(t_idle));
-	idle = (*data)->idle;	
+	idle = (*data)->idle;
 	idle->right[0] = mlx_load_png("assets/player/idle/right/0.png");
 	idle->right[1] = mlx_load_png("assets/player/idle/right/1.png");
 	idle->right[2] = mlx_load_png("assets/player/idle/right/2.png");

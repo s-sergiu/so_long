@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 15:35:24 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/26 00:04:02 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/26 00:06:05 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ struct s_data
 	mlx_image_t		*tile_wall;
 	mlx_image_t		*exit;
 	mlx_image_t		**collectibles;
-	char			*collectible_count;;
+	char			*collectible_count;
 	mlx_texture_t	*player;
 	t_idle			*idle;
 	t_run			*run;

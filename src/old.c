@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 13:57:53 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/26 00:04:02 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/26 00:15:45 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,20 @@ int	get_collectible_count(char *map)
 
 	i = -1;
 	count = 0;
-	while(map[++i])
-		if(map[i] == 'C')
+	while (map[++i])
+		if (map[i] == 'C')
 			count++;
-	return (count);		
+	return (count);
 }
 
 void	init_game_data(t_data **data, char *argv)
 {
-	int count;
+	int	count;
+
 	(*data)->map_string = read_map(argv);
 	count = get_collectible_count((*data)->map_string);
-	(*data)->collectibles = (mlx_image_t **)malloc(sizeof(mlx_image_t *) * count);
+	(*data)->collectibles = (mlx_image_t **)malloc
+		(sizeof(mlx_image_t *) * count);
 	(*data)->collectible_count = (char *)malloc(sizeof(char) * count);
 	(*data)->map = ft_split((*data)->map_string, '\n');
 	(*data)->mlx = mlx_init(WIDTH, HEIGHT, "so_long", true);
@@ -51,8 +53,8 @@ void	destroy_and_free(t_data **data)
 int	is_valid_move(t_data *data, int x, int y)
 {
 	mlx_instance_t	*player;
-	int posx;
-	int posy;
+	int				posx;
+	int				posy;
 
 	player = data->player_box->instances;
 	posx = (x + player->x / TILE);
@@ -64,21 +66,21 @@ int	is_valid_move(t_data *data, int x, int y)
 
 void	delete_collectible(t_data **data)
 {
-	t_list *current;
-	t_list *head; 
-	int posy;
-	int posx;
+	t_list	*current;
+	t_list	*head;
+	int		posy;
+	int		posx;
 
 	posx = (*data)->player_box->instances[0].x / 32;
 	posy = (*data)->player_box->instances[0].y / 32;
-	head  = (*data)->collectible_list;
+	head = (*data)->collectible_list;
 	current = head;
 	if (head->x == posx && head->y == posy)
 	{
-			(*data)->collectible_list = (*data)->collectible_list->next;
-			mlx_delete_image((*data)->mlx, current->position);
+		(*data)->collectible_list = (*data)->collectible_list->next;
+		mlx_delete_image((*data)->mlx, current->position);
 	}
-	while(current->next)
+	while (current->next)
 	{
 		if (current->next->x == posx && current->next->y == posy)
 		{
@@ -93,8 +95,8 @@ void	delete_collectible(t_data **data)
 void	player_is_on_colectible(t_data **data)
 {
 	mlx_instance_t	*player;
-	int posx;
-	int posy;
+	int				posx;
+	int				posy;
 
 	player = (*data)->player_box->instances;
 	posx = player[0].x / 32;
@@ -108,8 +110,8 @@ void	player_is_on_colectible(t_data **data)
 
 int	player_is_on_exit(t_data **data)
 {
-	mlx_instance_t *player;
-	mlx_instance_t *exit;
+	mlx_instance_t	*player;
+	mlx_instance_t	*exit;
 
 	player = &(*data)->player_box->instances[0];
 	exit = &(*data)->exit->instances[0];
@@ -126,14 +128,14 @@ void	idle_animation(void *param)
 	static int		i;
 
 	data = param;
-	player = data->idle->right_idle;	
+	player = data->idle->right_idle;
 	if (frames == 0 || frames % 7 == 0)
 	{
 		ft_memcpy(player[0]->pixels, player[i]->pixels, 64 * 64 * 4);
-		if(i == 7)
+		if (i == 7)
 		{
 			frames = -1;
-			i = - 1;
+			i = -1;
 		}
 		i++;
 	}
@@ -150,15 +152,17 @@ void	hook(void *param)
 
 void	keyhook(mlx_key_data_t keydata, void *param)
 {
-	t_data	*data;
-	mlx_image_t	*player;
-	mlx_image_t	*player_box;
-	static int	move;
+	t_data			*data;
+	mlx_image_t		*player;
+	mlx_image_t		*player_box;
+	static int		move;
+	mlx_image_t		*exit_img;
+	mlx_image_t		*exit;
+	mlx_texture_t	*tiles;
 
 	data = param;
 	player = data->idle->right_idle[0];
 	player_box = data->player_box;
-
 	data->collectible_count = ft_itoa(move + 1);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(data->mlx);
@@ -171,7 +175,8 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 			move++;
 			printf("Player moves: %d.\n", move);
 			mlx_delete_image(data->mlx, data->tile_floor);
-			data->tile_floor = mlx_put_string(data->mlx, data->collectible_count, 6, 6);
+			data->tile_floor = mlx_put_string(data->mlx,
+					data->collectible_count, 6, 6);
 		}
 	}
 	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
@@ -183,7 +188,8 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 			move++;
 			printf("Player moves: %d.\n", move);
 			mlx_delete_image(data->mlx, data->tile_floor);
-			data->tile_floor = mlx_put_string(data->mlx, data->collectible_count, 6, 6);
+			data->tile_floor = mlx_put_string(data->mlx,
+					data->collectible_count, 6, 6);
 		}
 	}
 	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
@@ -195,7 +201,8 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 			move++;
 			printf("Player moves: %d.\n", move);
 			mlx_delete_image(data->mlx, data->tile_floor);
-			data->tile_floor = mlx_put_string(data->mlx, data->collectible_count, 6, 6);
+			data->tile_floor = mlx_put_string(data->mlx,
+					data->collectible_count, 6, 6);
 		}
 	}
 	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
@@ -207,16 +214,13 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 			move++;
 			printf("Player moves: %d.\n", move);
 			mlx_delete_image(data->mlx, data->tile_floor);
-			data->tile_floor = mlx_put_string(data->mlx, data->collectible_count, 6, 6);
+			data->tile_floor = mlx_put_string(data->mlx,
+					data->collectible_count, 6, 6);
 		}
 	}
 	player_is_on_colectible(&data);
 	if (ft_lstsize(data->collectible_list) == 0)
 	{
-		mlx_image_t		*exit_img;
-		mlx_image_t		*exit;
-		mlx_texture_t	*tiles;
-
 		tiles = mlx_load_png("assets/tiles/other/34.png");
 		exit_img = mlx_texture_to_image(data->mlx, tiles);
 		exit = data->exit;
@@ -228,8 +232,8 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 
 void	game_loop(char *argv)
 {
-	t_data *data;
-	
+	t_data	*data;
+
 	init_game_data(&data, argv);
 	mlx_loop_hook(data->mlx, &hook, data);
 	mlx_key_hook(data->mlx, keyhook, data);
