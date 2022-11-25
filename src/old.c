@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 13:57:53 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/25 18:45:24 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/25 23:10:13 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	init_game_data(t_data **data, char *argv)
 	(*data)->mlx = mlx_init(WIDTH, HEIGHT, "so_long", true);
 	(*data)->img = mlx_new_image((*data)->mlx, WIDTH, HEIGHT);
 	(*data)->collectible_list = NULL;
+	(*data)->enemy_list = NULL;
 	draw_map(data);
 }
 

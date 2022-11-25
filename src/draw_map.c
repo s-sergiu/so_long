@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 09:37:33 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/25 11:35:39 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/25 22:41:13 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,23 @@ void	put_collectable(t_data **data, int width, int height)
 		((*data)->collectible_list)->x = width;
 		((*data)->collectible_list)->y = height;
 		mlx_image_to_window((*data)->mlx, ((*data)->collectible_list)->position, width * TILE, height * TILE);
+	}
+	mlx_delete_texture(tiles);
+}
+
+void	put_enemy(t_data **data, int width, int height)
+{
+	mlx_texture_t	*tiles;
+	mlx_image_t		*image;
+
+	tiles = mlx_load_png("assets/enemy/idle/1.png");
+	image = mlx_texture_to_image((*data)->mlx, tiles);
+	if ((*data)->map[height][width] == 'G')
+	{
+		ft_lstadd_front(&((*data)->enemy_list), ft_lstnew(image));
+		((*data)->enemy_list)->x = width;
+		((*data)->enemy_list)->y = height;
+		mlx_image_to_window((*data)->mlx, ((*data)->enemy_list)->position, width * TILE - 14, height * TILE - 16);
 	}
 	mlx_delete_texture(tiles);
 }
@@ -119,6 +136,20 @@ void	put_door(t_data **data)
 	mlx_delete_texture(tiles);
 }
 
+void	draw_enemies(t_data **data)
+{
+	int y;
+	int x;
+
+	y = -1;
+	while ((*data)->map[++y])
+	{
+		x = -1;
+		while ((*data)->map[y][++x])
+			put_enemy(data, x, y);
+	}
+}
+
 void	draw_collectables(t_data **data)
 {
 	int y;
@@ -156,6 +187,7 @@ void	draw_map(t_data **data)
 	mlx_image_to_window((*data)->mlx, (*data)->img, 0, 0);
 	draw_tiles(data);
 	draw_collectables(data);
+	draw_enemies(data);
 	put_door(data);
 	add_player_box(data);
 	add_player(data);
