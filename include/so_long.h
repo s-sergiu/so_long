@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 15:35:24 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/25 04:59:47 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/25 08:56:21 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ struct s_data
 	t_idle			*idle;
 	t_run			*run;
 	t_texture		*tiles;
+	t_list			*collectible_list;
 	mlx_texture_t	*game_icon;
 	mlx_image_t		*player_img;
 	mlx_image_t		*player_box;
@@ -129,5 +130,6 @@ size_t		ft_arrlength(char **string);
 t_position	*get_player_position(char **map);
 t_position	calculate_coords(t_position *player, t_position *movement);
 t_map		*init_structure(char *map_string);
+void		print_list(t_data **data);
 
 #endif

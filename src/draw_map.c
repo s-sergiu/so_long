@@ -6,23 +6,39 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 09:37:33 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/25 04:44:47 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/25 11:08:49 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
+void	print_list(t_data **data)
+{
+	t_list *current;
+	int	i;
+
+	i = 0;
+	current = (*data)->collectible_list;
+	while (current)
+	{
+		if (current->position)
+			i++;
+		current = current->next;
+	}
+}
 void	put_collectable(t_data **data, int width, int height)
 {
 	mlx_texture_t	*tiles;
-	static int		i;
+	mlx_image_t		*image;
 
 	tiles = mlx_load_png("assets/tiles/other/35.png");
-	(*data)->collectibles[i] = mlx_texture_to_image((*data)->mlx, tiles);
+	image = mlx_texture_to_image((*data)->mlx, tiles);
 	if ((*data)->map[height][width] == 'C')
 	{
-		printf("i:%d map at %d,%d is %c\n", i, height, width, (*data)->map[height][width]);
-		mlx_image_to_window((*data)->mlx, ((*data)->collectibles)[i++], width * TILE, height * TILE);
+		ft_lstadd_front(&((*data)->collectible_list), ft_lstnew(image));
+		((*data)->collectible_list)->x = width;
+		((*data)->collectible_list)->y = height;
+		mlx_image_to_window((*data)->mlx, ((*data)->collectible_list)->position, width * TILE, height * TILE);
 	}
 	mlx_delete_texture(tiles);
 }
@@ -86,20 +102,19 @@ void	add_player_box(t_data **data)
 	posx = player_pos->x * TILE;
 	posy = player_pos->y * TILE;
 	(*data)->player_box = mlx_new_image((*data)->mlx, TILE, TILE);
-	ft_memset((*data)->player_box->pixels, 200, TILE * TILE * 4);
+	ft_memset((*data)->player_box->pixels, 0, TILE * TILE * 4);
 	mlx_image_to_window((*data)->mlx, (*data)->player_box, posx, posy);
 }
 
 void	put_door(t_data **data)
 {
 	mlx_texture_t	*tiles;
-	mlx_image_t		*exit_img;
 	t_position	*exit;
 
 	exit = get_component((*data)->map, 'E');
 	tiles = mlx_load_png("assets/tiles/other/33.png");
-	exit_img = mlx_texture_to_image((*data)->mlx, tiles);
-	mlx_image_to_window((*data)->mlx, exit_img, exit->x * 32, exit->y * 32);
+	(*data)->exit = mlx_texture_to_image((*data)->mlx, tiles);
+	mlx_image_to_window((*data)->mlx, (*data)->exit, exit->x * 32, exit->y * 32);
 	free(exit);
 	mlx_delete_texture(tiles);
 }

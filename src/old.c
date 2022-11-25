@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 13:57:53 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/25 05:00:07 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/25 11:08:17 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	init_game_data(t_data **data, char *argv)
 	(*data)->map = ft_split((*data)->map_string, '\n');
 	(*data)->mlx = mlx_init(WIDTH, HEIGHT, "so_long", true);
 	(*data)->img = mlx_new_image((*data)->mlx, WIDTH, HEIGHT);
+	(*data)->collectible_list = NULL;
 	draw_map(data);
 }
 
@@ -60,23 +61,60 @@ int	is_valid_move(t_data *data, int x, int y)
 	return (0);
 }
 
+void	delete_collectible(t_data **data)
+{
+	t_list *current;
+	t_list *head; 
+	int posy;
+	int posx;
+
+	posx = (*data)->player_box->instances[0].x / 32;
+	posy = (*data)->player_box->instances[0].y / 32;
+	head  = (*data)->collectible_list;
+	current = head;
+	if (head->x == posx && head->y == posy)
+	{
+			(*data)->collectible_list = (*data)->collectible_list->next;
+			mlx_delete_image((*data)->mlx, current->position);
+	}
+	while(current->next)
+	{
+		if (current->next->x == posx && current->next->y == posy)
+		{
+			mlx_delete_image((*data)->mlx, current->next->position);
+			current->next = current->next->next;
+			break ;
+		}
+		current = current->next;
+	}
+}
+
 void	player_is_on_colectible(t_data **data)
 {
 	mlx_instance_t	*player;
 	int posx;
 	int posy;
-	static int i;
 
 	player = (*data)->player_box->instances;
 	posx = player[0].x / 32;
 	posy = player[0].y / 32;
-	printf("player y:%d,x:%d\n", posy, posx);
-	printf("%c\n", (*data)->map[posy][posx]);
 	if ((*data)->map[posy][posx] == 'C')
 	{
 		(*data)->map[posy][posx] = '0';
-		mlx_delete_image((*data)->mlx, (*data)->collectibles[i++]);
+		delete_collectible(data);
 	}
+}
+
+int	player_is_on_exit(t_data **data)
+{
+	mlx_instance_t *player;
+	mlx_instance_t *exit;
+
+	player = &(*data)->player_box->instances[0];
+	exit = &(*data)->exit->instances[0];
+	if (player->x == exit->x && player->y == exit->y)
+		return (1);
+	return (0);
 }
 
 void	keyhook(mlx_key_data_t keydata, void *param)
@@ -123,6 +161,19 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 		}
 	}
 	player_is_on_colectible(&data);
+	if (ft_lstsize(data->collectible_list) == 0)
+	{
+		mlx_image_t		*exit_img;
+		mlx_image_t		*exit;
+		mlx_texture_t	*tiles;
+
+		tiles = mlx_load_png("assets/tiles/other/34.png");
+		exit_img = mlx_texture_to_image(data->mlx, tiles);
+		exit = data->exit;
+		ft_memcpy(exit->pixels, exit_img->pixels, 32 * 32 * 4);
+	}
+	if (player_is_on_exit(&data) && ft_lstsize(data->collectible_list) == 0)
+		exit(1);
 }
 
 void	game_loop(char *argv)

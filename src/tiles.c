@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 08:44:08 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/24 16:11:20 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/25 09:46:17 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ void init_tile_textures(t_data **data)
 	tiles->floor[1] = mlx_load_png("assets/tiles/floor/1.png");
 	tiles->floor[2] = mlx_load_png("assets/tiles/floor/2.png");
 	tiles->floor[3] = mlx_load_png("assets/tiles/floor/3.png");
-	tiles->floor[4] = mlx_load_png("assets/tiles/floor/4.png");
+	tiles->floor[4] = mlx_load_png("assets/tiles/other/34.png");
 	tiles->floor[5] = mlx_load_png("assets/tiles/floor/5.png");
 	tiles->floor[6] = mlx_load_png("assets/tiles/floor/6.png");
 	tiles->floor[7] = mlx_load_png("assets/tiles/floor/7.png");
