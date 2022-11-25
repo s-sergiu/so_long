@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 13:57:53 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/26 00:15:45 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/26 00:35:24 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 	mlx_image_t		*player_box;
 	static int		move;
 	mlx_image_t		*exit_img;
-	mlx_image_t		*exit;
+	mlx_image_t		*exit_image;
 	mlx_texture_t	*tiles;
 
 	data = param;
@@ -223,8 +223,8 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 	{
 		tiles = mlx_load_png("assets/tiles/other/34.png");
 		exit_img = mlx_texture_to_image(data->mlx, tiles);
-		exit = data->exit;
-		ft_memcpy(exit->pixels, exit_img->pixels, 32 * 32 * 4);
+		exit_image = data->exit;
+		ft_memcpy(exit_image->pixels, exit_img->pixels, 32 * 32 * 4);
 	}
 	if (player_is_on_exit(&data) && ft_lstsize(data->collectible_list) == 0)
 		exit(1);
