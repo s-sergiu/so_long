@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 13:57:53 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/25 11:08:17 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/25 11:11:55 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 	t_data	*data;
 	mlx_image_t	*player;
 	mlx_image_t	*player_box;
+	static int	move;
 
 	data = param;
 	player = data->idle->right_idle[0];
@@ -134,6 +135,8 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 		{
 			player_box->instances[0].y += 1 * TILE;
 			player->instances[0].y += 1 * TILE;
+			move++;
+			printf("Player moves: %d.\n", move);
 		}
 	}
 	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
@@ -142,6 +145,8 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 		{
 			player_box->instances[0].x -= 1 * TILE;
 			player->instances[0].x -= 1 * TILE;
+			move++;
+			printf("Player moves: %d.\n", move);
 		}
 	}
 	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
@@ -150,6 +155,8 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 		{
 			player_box->instances[0].y -= 1 * TILE;
 			player->instances[0].y -= 1 * TILE;
+			move++;
+			printf("Player moves: %d.\n", move);
 		}
 	}
 	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
@@ -158,6 +165,8 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 		{
 			player_box->instances[0].x += 1 * TILE;
 			player->instances[0].x += 1 * TILE;
+			move++;
+			printf("Player moves: %d.\n", move);
 		}
 	}
 	player_is_on_colectible(&data);
