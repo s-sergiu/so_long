@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 08:44:08 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/25 09:46:17 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/25 11:31:49 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ void	load_idle_images(t_data **data)
 	idle->left_idle[6] = mlx_texture_to_image((*data)->mlx, idle->left[6]);
 	idle->left_idle[7] = mlx_texture_to_image((*data)->mlx, idle->left[7]);
 	idle->left_idle[8] = NULL;
+	idle->idle = mlx_texture_to_image((*data)->mlx, idle->right[0]);
 }
 
 void	destroy_idle_structure(t_data **data)

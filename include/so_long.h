@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 15:35:24 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/25 08:56:21 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/25 11:30:13 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ struct	s_idle_texture
 	mlx_texture_t	*right[9];	
 	mlx_image_t		*right_idle[9];	
 	mlx_image_t		*left_idle[9];	
+	mlx_image_t		*idle;
 };
 
 struct s_map

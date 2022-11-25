@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 13:57:53 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/25 11:11:55 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/25 18:45:24 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,36 @@ int	player_is_on_exit(t_data **data)
 	return (0);
 }
 
+void	idle_animation(void *param)
+{
+	t_data			*data;
+	mlx_image_t		**player;
+	static int		frames;
+	static int		i;
+
+	data = param;
+	player = data->idle->right_idle;	
+	if (frames == 0 || frames % 7 == 0)
+	{
+		ft_memcpy(player[0]->pixels, player[i]->pixels, 64 * 64 * 4);
+		if(i == 7)
+		{
+			frames = -1;
+			i = - 1;
+		}
+		i++;
+	}
+	frames++;
+}
+
+void	hook(void *param)
+{
+	t_data			*data;
+
+	data = param;
+	idle_animation(data);
+}
+
 void	keyhook(mlx_key_data_t keydata, void *param)
 {
 	t_data	*data;
@@ -127,6 +157,8 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 	data = param;
 	player = data->idle->right_idle[0];
 	player_box = data->player_box;
+
+	data->collectible_count = ft_itoa(move + 1);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(data->mlx);
 	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
@@ -137,6 +169,8 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 			player->instances[0].y += 1 * TILE;
 			move++;
 			printf("Player moves: %d.\n", move);
+			mlx_delete_image(data->mlx, data->tile_floor);
+			data->tile_floor = mlx_put_string(data->mlx, data->collectible_count, 6, 6);
 		}
 	}
 	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
@@ -147,6 +181,8 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 			player->instances[0].x -= 1 * TILE;
 			move++;
 			printf("Player moves: %d.\n", move);
+			mlx_delete_image(data->mlx, data->tile_floor);
+			data->tile_floor = mlx_put_string(data->mlx, data->collectible_count, 6, 6);
 		}
 	}
 	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
@@ -157,6 +193,8 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 			player->instances[0].y -= 1 * TILE;
 			move++;
 			printf("Player moves: %d.\n", move);
+			mlx_delete_image(data->mlx, data->tile_floor);
+			data->tile_floor = mlx_put_string(data->mlx, data->collectible_count, 6, 6);
 		}
 	}
 	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
@@ -167,6 +205,8 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 			player->instances[0].x += 1 * TILE;
 			move++;
 			printf("Player moves: %d.\n", move);
+			mlx_delete_image(data->mlx, data->tile_floor);
+			data->tile_floor = mlx_put_string(data->mlx, data->collectible_count, 6, 6);
 		}
 	}
 	player_is_on_colectible(&data);
@@ -190,7 +230,7 @@ void	game_loop(char *argv)
 	t_data *data;
 	
 	init_game_data(&data, argv);
-//	mlx_loop_hook(data->mlx, &hook, data);
+	mlx_loop_hook(data->mlx, &hook, data);
 	mlx_key_hook(data->mlx, keyhook, data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
