@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 13:57:53 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/26 00:35:24 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/26 04:17:42 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,19 @@ void	init_game_data(t_data **data, char *argv)
 	(*data)->img = mlx_new_image((*data)->mlx, WIDTH, HEIGHT);
 	(*data)->collectible_list = NULL;
 	(*data)->enemy_list = NULL;
+	(*data)->enemy_movement[0] = (t_position *)malloc(sizeof(t_position));
+	(*data)->enemy_movement[1] = (t_position *)malloc(sizeof(t_position));
+	(*data)->enemy_movement[2] = (t_position *)malloc(sizeof(t_position));
+	(*data)->enemy_movement[3] = (t_position *)malloc(sizeof(t_position));
+	(*data)->enemy_movement[4] = NULL;
+	(*data)->enemy_movement[0]->x = 0;
+	(*data)->enemy_movement[0]->y = -1;
+	(*data)->enemy_movement[1]->x = 0;
+	(*data)->enemy_movement[1]->y = 1;
+	(*data)->enemy_movement[2]->x = 1;
+	(*data)->enemy_movement[2]->y = 0;
+	(*data)->enemy_movement[3]->x = -1;
+	(*data)->enemy_movement[3]->y = 0;
 	draw_map(data);
 }
 
@@ -142,6 +155,55 @@ void	idle_animation(void *param)
 	frames++;
 }
 
+int	is_valid_enemy_move(t_data *data, mlx_image_t *enemy, int index)
+{
+	mlx_instance_t	*player;
+	t_position		*direction;
+	int posx;
+	int posy;
+
+	direction = (*data).enemy_movement[index];
+	player = enemy->instances;
+	posy = player[0].y / TILE + direction->y + 1;
+	posx = player[0].x / TILE + direction->x + 1;
+	printf("direction at X:%d, Y:%d\n", posx, posy);
+	if (data->map[posy][posx] != '1')
+	{
+		printf("map at x:%d,y:%d is %c\n", posx, posy, data->map[posy][posx]);
+		return (0);
+	}
+	return (1);
+}
+
+void	enemy_movement(t_data **data)
+{
+	t_list	*current;	
+	mlx_image_t *enemy;
+	t_position		*direction;
+	int		i;
+	int		index;
+
+	current = (*data)->enemy_list;
+	i = 0;
+	while(current)
+	{
+		enemy = current->position;
+		index = (rand() % (3 + 1 - 0) + 0);
+		direction = (*data)->enemy_movement[index];
+		printf("thinking of moving %d\n", index);
+			printf("enemy %d is at x:%d, y:%d\n", i++, enemy->instances[0].y / 32 + 1, enemy->instances[0].x / 32 + 1);
+		if(is_valid_enemy_move((*data), enemy, index) == 0)
+		{
+			printf("player moved\n");
+			enemy->instances[0].x += direction->x * TILE;
+			enemy->instances[0].y += direction->y * TILE;
+			printf("moved to X:%d, Y:%d\n", enemy->instances[0].x / TILE + 1, 
+				enemy->instances[0].y / TILE + 1);
+		}
+		current = current->next;
+	}
+}
+
 void	hook(void *param)
 {
 	t_data			*data;
@@ -159,10 +221,12 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 	mlx_image_t		*exit_img;
 	mlx_image_t		*exit_image;
 	mlx_texture_t	*tiles;
+	mlx_image_t		*enemy;
 
 	data = param;
 	player = data->idle->right_idle[0];
 	player_box = data->player_box;
+	enemy = data->enemy_list->position;
 	data->collectible_count = ft_itoa(move + 1);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(data->mlx);
@@ -228,6 +292,7 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 	}
 	if (player_is_on_exit(&data) && ft_lstsize(data->collectible_list) == 0)
 		exit(1);
+	enemy_movement(&data);
 }
 
 void	game_loop(char *argv)
