@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 13:57:53 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/26 04:17:42 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/26 04:19:29 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,12 +166,8 @@ int	is_valid_enemy_move(t_data *data, mlx_image_t *enemy, int index)
 	player = enemy->instances;
 	posy = player[0].y / TILE + direction->y + 1;
 	posx = player[0].x / TILE + direction->x + 1;
-	printf("direction at X:%d, Y:%d\n", posx, posy);
 	if (data->map[posy][posx] != '1')
-	{
-		printf("map at x:%d,y:%d is %c\n", posx, posy, data->map[posy][posx]);
 		return (0);
-	}
 	return (1);
 }
 
@@ -190,15 +186,10 @@ void	enemy_movement(t_data **data)
 		enemy = current->position;
 		index = (rand() % (3 + 1 - 0) + 0);
 		direction = (*data)->enemy_movement[index];
-		printf("thinking of moving %d\n", index);
-			printf("enemy %d is at x:%d, y:%d\n", i++, enemy->instances[0].y / 32 + 1, enemy->instances[0].x / 32 + 1);
 		if(is_valid_enemy_move((*data), enemy, index) == 0)
 		{
-			printf("player moved\n");
 			enemy->instances[0].x += direction->x * TILE;
 			enemy->instances[0].y += direction->y * TILE;
-			printf("moved to X:%d, Y:%d\n", enemy->instances[0].x / TILE + 1, 
-				enemy->instances[0].y / TILE + 1);
 		}
 		current = current->next;
 	}
