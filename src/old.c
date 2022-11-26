@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 13:57:53 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/26 04:19:29 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/26 04:54:43 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,32 @@ void	delete_collectible(t_data **data)
 			break ;
 		}
 		current = current->next;
+	}
+}
+
+void	player_is_on_enemy(t_data **data)
+{
+	mlx_instance_t	*player;
+	mlx_image_t		*enemy;
+	t_list			*current;
+	int				posx;
+	int				posy;
+
+	current = (*data)->enemy_list;
+	player = (*data)->player_box->instances;
+	while (current)
+	{
+		enemy = current->position;
+		if ((enemy->instances[0].x / 32 + 1) == (player[0].x / 32) && (enemy->instances[0].y / 32 + 1) == (player[0].y / 32))
+			exit(1);
+		current = current->next;
+	}
+	posx = player[0].x / 32;
+	posy = player[0].y / 32;
+	if ((*data)->map[posy][posx] == 'C')
+	{
+		(*data)->map[posy][posx] = '0';
+		delete_collectible(data);
 	}
 }
 
@@ -232,6 +258,7 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 			mlx_delete_image(data->mlx, data->tile_floor);
 			data->tile_floor = mlx_put_string(data->mlx,
 					data->collectible_count, 6, 6);
+			enemy_movement(&data);
 		}
 	}
 	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
@@ -245,6 +272,7 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 			mlx_delete_image(data->mlx, data->tile_floor);
 			data->tile_floor = mlx_put_string(data->mlx,
 					data->collectible_count, 6, 6);
+			enemy_movement(&data);
 		}
 	}
 	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
@@ -258,6 +286,7 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 			mlx_delete_image(data->mlx, data->tile_floor);
 			data->tile_floor = mlx_put_string(data->mlx,
 					data->collectible_count, 6, 6);
+			enemy_movement(&data);
 		}
 	}
 	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
@@ -271,9 +300,11 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 			mlx_delete_image(data->mlx, data->tile_floor);
 			data->tile_floor = mlx_put_string(data->mlx,
 					data->collectible_count, 6, 6);
+			enemy_movement(&data);
 		}
 	}
 	player_is_on_colectible(&data);
+	player_is_on_enemy(&data);
 	if (ft_lstsize(data->collectible_list) == 0)
 	{
 		tiles = mlx_load_png("assets/tiles/other/34.png");
@@ -283,7 +314,6 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 	}
 	if (player_is_on_exit(&data) && ft_lstsize(data->collectible_list) == 0)
 		exit(1);
-	enemy_movement(&data);
 }
 
 void	game_loop(char *argv)
