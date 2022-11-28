@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 15:35:24 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/26 03:31:28 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/28 04:23:09 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 # include <sys/errno.h>
 # include <stdio.h>
 # include <string.h>
-# define WIDTH TILE * ft_strlen(*(*data)->map)
-# define HEIGHT TILE * ft_arrlength((*data)->map)
 # define SPRITE 64
 # define TILE 32
 
@@ -28,7 +26,6 @@ typedef struct s_position		t_position;
 typedef struct s_map			t_map;
 typedef struct s_texture		t_texture;
 typedef struct s_idle_texture	t_idle;
-typedef struct s_run_texture	t_run;
 typedef struct s_data			t_data;
 
 enum e_bool
@@ -57,7 +54,6 @@ struct s_data
 	char			*collectible_count;
 	mlx_texture_t	*player;
 	t_idle			*idle;
-	t_run			*run;
 	t_texture		*tiles;
 	t_list			*collectible_list;
 	t_list			*enemy_list;
@@ -67,14 +63,8 @@ struct s_data
 	t_position		*enemy_movement[5];
 	char			*map_string;
 	char			**map;
-};
-
-struct	s_run_texture
-{
-	mlx_texture_t	*left[9];	
-	mlx_texture_t	*right[9];	
-	mlx_image_t		*right_run[9];	
-	mlx_image_t		*left_run[9];	
+	int				width;
+	int				height;
 };
 
 struct	s_idle_texture
@@ -116,6 +106,25 @@ void		init_idle_texture(t_data **data);
 void		destroy_run_structure(t_data **data);
 void		destroy_idle_structure(t_data **data);
 void		destroy_tile_structure(t_data **data);
+void		delete_tile_textures(t_data **data);
+void		delete_idle_textures(t_data **data);
+t_position	*get_component(char **map, char type);
+void		put_enemy(t_data **data, int width, int height);
+void		put_collectable(t_data **data, int width, int height);
+void		delete_collectible(t_data **data);
+void		put_floor(t_data **data, char c, int width, int height);
+void		put_door(t_data **data);
+void		add_player(t_data **data);
+void		enemy_movement(t_data **data);
+int			is_valid_move(t_data *data, t_position *position);
+void		check_if_collected_all(t_data *data);
+void		init_enemy_movement(t_data **data);
+void		destroy_and_free(t_data **data);
+int			get_collectible_count(char *map);
+void		idle_animation(void *param);
+void		player_is_on_colectible(t_data **data);
+void		player_is_on_enemy(t_data **data);
+int			player_is_on_exit(t_data **data);
 char		*read_map(char *map);
 int			map_has_errors(char *argv);
 int			not_valid_map_name(char *filename);

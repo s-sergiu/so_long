@@ -22,6 +22,11 @@ OBJ= obj/main.o \
 	 obj/draw_map.o \
 	 obj/tiles.o \
 	 obj/old.o \
+	 obj/tiles_utils.o \
+	 obj/enemy.o \
+	 obj/player.o \
+	 obj/collectable.o \
+	 obj/put_tiles.o \
 
 MLX= lib/MLX42/libmlx42.a
 MLX_DIR= lib/MLX42/

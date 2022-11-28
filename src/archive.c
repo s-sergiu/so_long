@@ -208,3 +208,88 @@
 //	frames++;
 //}
 //
+
+void	init_run_texture(t_data **data)
+{
+	t_run	*run;
+
+	(*data)->run = (t_run *)malloc(sizeof(t_run));
+	run = (*data)->run;
+	run->right[0] = mlx_load_png("assets/player/run/right/0.png");
+	run->right[1] = mlx_load_png("assets/player/run/right/1.png");
+	run->right[2] = mlx_load_png("assets/player/run/right/2.png");
+	run->right[3] = mlx_load_png("assets/player/run/right/3.png");
+	run->right[4] = mlx_load_png("assets/player/run/right/4.png");
+	run->right[5] = mlx_load_png("assets/player/run/right/5.png");
+	run->right[6] = mlx_load_png("assets/player/run/right/6.png");
+	run->right[7] = mlx_load_png("assets/player/run/right/7.png");
+	run->right[8] = NULL;
+	run->left[0] = mlx_load_png("assets/player/run/left/0.png");
+	run->left[1] = mlx_load_png("assets/player/run/left/1.png");
+	run->left[2] = mlx_load_png("assets/player/run/left/2.png");
+	run->left[3] = mlx_load_png("assets/player/run/left/3.png");
+	run->left[4] = mlx_load_png("assets/player/run/left/4.png");
+	run->left[5] = mlx_load_png("assets/player/run/left/5.png");
+	run->left[6] = mlx_load_png("assets/player/run/left/6.png");
+	run->left[7] = mlx_load_png("assets/player/run/left/7.png");
+	run->left[8] = NULL;
+	load_run_images(data);
+	delete_run_textures(data);
+}
+
+void	load_run_images(t_data **data)
+{
+	t_run	*run;
+
+	run = (*data)->run;
+	run->right_run[0] = mlx_texture_to_image((*data)->mlx, run->right[0]);
+	run->right_run[1] = mlx_texture_to_image((*data)->mlx, run->right[1]);
+	run->right_run[2] = mlx_texture_to_image((*data)->mlx, run->right[2]);
+	run->right_run[3] = mlx_texture_to_image((*data)->mlx, run->right[3]);
+	run->right_run[4] = mlx_texture_to_image((*data)->mlx, run->right[4]);
+	run->right_run[5] = mlx_texture_to_image((*data)->mlx, run->right[5]);
+	run->right_run[6] = mlx_texture_to_image((*data)->mlx, run->right[6]);
+	run->right_run[7] = mlx_texture_to_image((*data)->mlx, run->right[7]);
+	run->right_run[8] = NULL;
+	run->left_run[0] = mlx_texture_to_image((*data)->mlx, run->left[0]);
+	run->left_run[1] = mlx_texture_to_image((*data)->mlx, run->left[1]);
+	run->left_run[2] = mlx_texture_to_image((*data)->mlx, run->left[2]);
+	run->left_run[3] = mlx_texture_to_image((*data)->mlx, run->left[3]);
+	run->left_run[4] = mlx_texture_to_image((*data)->mlx, run->left[4]);
+	run->left_run[5] = mlx_texture_to_image((*data)->mlx, run->left[5]);
+	run->left_run[6] = mlx_texture_to_image((*data)->mlx, run->left[6]);
+	run->left_run[7] = mlx_texture_to_image((*data)->mlx, run->left[7]);
+	run->left_run[8] = NULL;
+}
+
+void	destroy_run_structure(t_data **data)
+{
+	t_run	*image;
+
+	image = (*data)->run;
+	free(image);
+}
+
+void	delete_run_textures(t_data **data)
+{
+	t_run	*run;
+
+	run = (*data)->run;
+	mlx_delete_texture(run->right[0]);
+	mlx_delete_texture(run->right[1]);
+	mlx_delete_texture(run->right[2]);
+	mlx_delete_texture(run->right[3]);
+	mlx_delete_texture(run->right[4]);
+	mlx_delete_texture(run->right[5]);
+	mlx_delete_texture(run->right[6]);
+	mlx_delete_texture(run->right[7]);
+	mlx_delete_texture(run->left[0]);
+	mlx_delete_texture(run->left[1]);
+	mlx_delete_texture(run->left[2]);
+	mlx_delete_texture(run->left[3]);
+	mlx_delete_texture(run->left[4]);
+	mlx_delete_texture(run->left[5]);
+	mlx_delete_texture(run->left[6]);
+	mlx_delete_texture(run->left[7]);
+}
+

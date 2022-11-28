@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 06:25:06 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/18 16:12:35 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/28 02:51:57 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,28 @@ t_map	*init_structure(char *map_string)
 	map->exit = get_exit_position(map->map);
 	map->map_loop = 0;
 	return (map);
+}
+
+t_position	*get_component(char **map, char type)
+{
+	int			x;
+	int			y;
+	t_position	*exit;
+
+	y = -1;
+	exit = (t_position *)malloc(sizeof(t_position));
+	while (map[++y])
+	{
+		x = -1;
+		while (map[y][++x])
+		{
+			if (map[y][x] == type)
+			{
+				exit->x = x;
+				exit->y = y;
+				return (exit);
+			}
+		}
+	}
+	return (NULL);
 }
