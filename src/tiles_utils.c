@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 02:46:57 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/29 08:43:15 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/29 13:56:08 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,12 @@ void	delete_tile_textures(t_data **data)
 	t_texture	*tiles;
 
 	tiles = (*data)->tiles;
-	mlx_delete_texture(tiles->floor[0]);
-	mlx_delete_texture(tiles->floor[1]);
-	mlx_delete_texture(tiles->floor[2]);
-	mlx_delete_texture(tiles->floor[3]);
-	mlx_delete_texture(tiles->floor[4]);
-	mlx_delete_texture(tiles->floor[5]);
-	mlx_delete_texture(tiles->floor[6]);
-	mlx_delete_texture(tiles->floor[7]);
-	mlx_delete_texture(tiles->wall[0]);
-	mlx_delete_texture(tiles->wall[1]);
-	mlx_delete_texture(tiles->wall[2]);
-	mlx_delete_texture(tiles->wall[3]);
-	mlx_delete_texture(tiles->wall[4]);
+	mlx_delete_texture(tiles->floor);
+	mlx_delete_texture(tiles->wall);
+	mlx_delete_texture(tiles->exit[0]);
+	mlx_delete_texture(tiles->exit[1]);
+	mlx_delete_texture(tiles->enemy[0]);
+	mlx_delete_texture(tiles->enemy[1]);
 }
 
 void	delete_idle_textures(t_data **data)
@@ -45,14 +38,6 @@ void	delete_idle_textures(t_data **data)
 	mlx_delete_texture(idle->right[5]);
 	mlx_delete_texture(idle->right[6]);
 	mlx_delete_texture(idle->right[7]);
-	mlx_delete_texture(idle->left[0]);
-	mlx_delete_texture(idle->left[1]);
-	mlx_delete_texture(idle->left[2]);
-	mlx_delete_texture(idle->left[3]);
-	mlx_delete_texture(idle->left[4]);
-	mlx_delete_texture(idle->left[5]);
-	mlx_delete_texture(idle->left[6]);
-	mlx_delete_texture(idle->left[7]);
 }
 
 void	destroy_movements(t_data **data)

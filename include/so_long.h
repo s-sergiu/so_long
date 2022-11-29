@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 15:35:24 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/29 08:45:23 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/29 14:22:48 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,24 @@ enum e_bool
 
 struct	s_texture
 {
-	mlx_texture_t	*floor[9];
-	mlx_texture_t	*wall[6];
-	mlx_image_t		*floor_img[9];
-	mlx_image_t		*wall_img[6];
+	mlx_texture_t	*floor;
+	mlx_texture_t	*wall;
+	mlx_texture_t	*enemy[3];
+	mlx_texture_t	*exit[3];
+	mlx_image_t		*floor_img;
+	mlx_image_t		*wall_img;
+	mlx_image_t		*enemy_img[3];
+	mlx_image_t		*exit_img[3];
+
 };
 
 struct s_data
 {
 	mlx_t			*mlx;
 	mlx_image_t		*img;
-	mlx_texture_t	*tile_texture;
-	mlx_image_t		*tile_floor;
-	mlx_image_t		*tile_wall;
-	mlx_image_t		*exit;
-	mlx_image_t		**collectibles;
 	char			*collectible_count;
 	mlx_texture_t	*player;
+	mlx_image_t		*score;
 	t_idle			*idle;
 	t_texture		*tiles;
 	t_list			*collectible_list;
@@ -119,7 +120,6 @@ void		enemy_movement(t_data **data);
 int			is_valid_move(t_data *data, t_position *position);
 void		check_if_collected_all(t_data *data);
 void		init_movements(t_data **data);
-void		destroy_and_free(t_data **data);
 int			get_collectible_count(char *map);
 void		idle_animation(void *param);
 void		player_is_on_colectible(t_data **data);

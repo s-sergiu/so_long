@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 02:49:57 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/29 05:40:48 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/29 14:06:35 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,17 @@ void	put_collectable(t_data **data, int width, int height)
 
 void	put_enemy(t_data **data, int width, int height)
 {
-	mlx_texture_t	*tiles;
-	mlx_image_t		*image;
+	mlx_image_t		**image;
 
-	tiles = mlx_load_png("assets/enemy/idle/1.png");
-	image = mlx_texture_to_image((*data)->mlx, tiles);
+	image = (*data)->tiles->enemy_img;
 	if ((*data)->map[height][width] == 'G')
 	{
-		ft_lstadd_front(&((*data)->enemy_list), ft_lstnew(image));
+		ft_lstadd_front(&((*data)->enemy_list), ft_lstnew(image[0]));
 		((*data)->enemy_list)->x = width;
 		((*data)->enemy_list)->y = height;
 		mlx_image_to_window((*data)->mlx, ((*data)->enemy_list)->position,
 			width * TILE - 14, height * TILE - 16);
 	}
-	mlx_delete_texture(tiles);
 }
 
 void	put_floor(t_data **data, char c, int width, int height)
@@ -54,9 +51,9 @@ void	put_floor(t_data **data, char c, int width, int height)
 
 	tiles = (*data)->tiles;
 	if (c == '1')
-		mlx_image_to_window((*data)->mlx, tiles->wall_img[0], width, height);
+		mlx_image_to_window((*data)->mlx, tiles->wall_img, width, height);
 	else
-		mlx_image_to_window((*data)->mlx, tiles->floor_img[0], width, height);
+		mlx_image_to_window((*data)->mlx, tiles->floor_img, width, height);
 }
 
 void	add_player(t_data **data)
@@ -77,14 +74,12 @@ void	add_player(t_data **data)
 
 void	put_door(t_data **data)
 {
-	mlx_texture_t	*tiles;
+	t_texture		*image;
 	t_position		*exit;
 
 	exit = get_component((*data)->map, 'E');
-	tiles = mlx_load_png("assets/tiles/other/33.png");
-	(*data)->exit = mlx_texture_to_image((*data)->mlx, tiles);
-	mlx_image_to_window((*data)->mlx, (*data)->exit,
-		exit->x * 32, exit->y * 32);
+	image = (*data)->tiles;
+	mlx_image_to_window((*data)->mlx, image->exit_img[0],
+		exit->x * TILE, exit->y * TILE);
 	free(exit);
-	mlx_delete_texture(tiles);
 }

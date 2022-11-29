@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 02:56:00 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/29 08:56:10 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/29 13:12:30 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	delete_collectible(t_data **data)
 	int		posy;
 	int		posx;
 
-	posx = (*data)->player_box->instances[0].x / 32;
-	posy = (*data)->player_box->instances[0].y / 32;
+	posx = (*data)->player_box->instances[0].x / TILE;
+	posy = (*data)->player_box->instances[0].y / TILE;
 	head = (*data)->collectible_list;
 	if (head->x == posx && head->y == posy)
 	{
@@ -69,8 +69,8 @@ void	player_is_on_colectible(t_data **data)
 	int				posy;
 
 	player = (*data)->player_box->instances;
-	posx = player[0].x / 32;
-	posy = player[0].y / 32;
+	posx = player[0].x / TILE;
+	posy = player[0].y / TILE;
 	if ((*data)->map[posy][posx] == 'C')
 	{
 		(*data)->map[posy][posx] = '0';
@@ -80,16 +80,14 @@ void	player_is_on_colectible(t_data **data)
 
 void	check_if_collected_all(t_data *data)
 {
-	mlx_image_t		*exit_img;
-	mlx_image_t		*exit_image;
-	mlx_texture_t	*tiles;
+	mlx_image_t		*exit_locked;
+	mlx_image_t		*exit_unlocked;
 
 	if (!data->collectible_list)
 	{
-		tiles = mlx_load_png("assets/tiles/other/34.png");
-		exit_img = mlx_texture_to_image(data->mlx, tiles);
-		exit_image = data->exit;
-		ft_memcpy(exit_image->pixels, exit_img->pixels, 32 * 32 * 4);
-		mlx_delete_texture(tiles);
+		exit_locked = data->tiles->exit_img[0];
+		exit_unlocked = data->tiles->exit_img[1];
+		ft_memcpy(exit_locked->pixels, exit_unlocked->pixels,
+			TILE * TILE * 4);
 	}
 }

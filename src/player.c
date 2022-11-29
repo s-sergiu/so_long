@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 02:53:08 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/29 06:22:25 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/29 14:20:29 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void	player_is_on_enemy(t_data **data)
 	while (current)
 	{
 		enemy = current->position;
-		if ((enemy->instances[0].x / 32 + 1)
-			== (player[0].x / 32) && (enemy->instances[0].y / 32 + 1)
-			== (player[0].y / 32))
+		if ((enemy->instances[0].x / TILE + 1)
+			== (player[0].x / TILE) && (enemy->instances[0].y / TILE + 1)
+			== (player[0].y / TILE))
 			mlx_close_window((*data)->mlx);
 		current = current->next;
 	}
-	posx = player[0].x / 32;
-	posy = player[0].y / 32;
+	posx = player[0].x / TILE;
+	posy = player[0].y / TILE;
 	if ((*data)->map[posy][posx] == 'C')
 	{
 		(*data)->map[posy][posx] = '0';
@@ -46,7 +46,7 @@ int	player_is_on_exit(t_data **data)
 	mlx_instance_t	*exit;
 
 	player = &(*data)->player_box->instances[0];
-	exit = &(*data)->exit->instances[0];
+	exit = &(*data)->tiles->exit_img[0]->instances[0];
 	if (player->x == exit->x && player->y == exit->y)
 		return (1);
 	return (0);
@@ -63,7 +63,8 @@ void	idle_animation(void *param)
 	player = data->idle->right_idle;
 	if (frames == 0 || frames % 7 == 0)
 	{
-		ft_memcpy(player[0]->pixels, player[i]->pixels, 64 * 64 * 4);
+		ft_memcpy(player[0]->pixels, player[i]->pixels,
+			SPRITE * SPRITE * 4);
 		if (i == 7)
 		{
 			frames = -1;
