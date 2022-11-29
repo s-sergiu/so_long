@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 13:57:53 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/29 14:21:20 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/29 23:14:27 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	hook(void *param)
 	t_data			*data;
 
 	data = param;
+	idle_animation(data);
 	player_is_on_colectible(&data);
 	check_if_collected_all(data);
 	player_is_on_enemy(&data);

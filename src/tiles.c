@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 08:44:08 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/29 14:01:08 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/29 23:16:02 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ void	load_tile_images(t_data **data)
 	tiles->wall_img = mlx_texture_to_image(mlx, tiles->wall);
 	tiles->exit_img[0] = mlx_texture_to_image(mlx, tiles->exit[0]);
 	tiles->exit_img[1] = mlx_texture_to_image(mlx, tiles->exit[1]);
-	tiles->enemy_img[0] = mlx_texture_to_image(mlx, tiles->enemy[0]);
-	tiles->enemy_img[1] = mlx_texture_to_image(mlx, tiles->enemy[1]);
 }
 
 void	init_tile_textures(t_data **data)
@@ -55,9 +53,6 @@ void	init_tile_textures(t_data **data)
 	tiles->exit[0] = mlx_load_png("assets/tiles/other/33.png");
 	tiles->exit[1] = mlx_load_png("assets/tiles/other/34.png");
 	tiles->exit[2] = NULL;
-	tiles->enemy[0] = mlx_load_png("assets/enemy/idle/1.png");
-	tiles->enemy[1] = mlx_load_png("assets/enemy/idle/2.png");
-	tiles->enemy[2] = NULL;
 	load_tile_images(data);
 	delete_tile_textures(data);
 }

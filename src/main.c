@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 06:57:33 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/29 14:21:51 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/29 23:13:17 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,7 @@ int	main(int argc, char **argv)
 		else
 			game_loop(argv[1]);
 	}
+	system("leaks so_long");
+	system("leaks bonus");
 	return (FALSE);
 }

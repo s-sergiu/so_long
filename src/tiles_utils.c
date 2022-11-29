@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 02:46:57 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/29 13:56:08 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/29 23:16:09 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	delete_tile_textures(t_data **data)
 	mlx_delete_texture(tiles->wall);
 	mlx_delete_texture(tiles->exit[0]);
 	mlx_delete_texture(tiles->exit[1]);
-	mlx_delete_texture(tiles->enemy[0]);
-	mlx_delete_texture(tiles->enemy[1]);
 }
 
 void	delete_idle_textures(t_data **data)

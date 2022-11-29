@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 02:49:57 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/29 14:06:35 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/29 23:15:36 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,20 @@ void	put_collectable(t_data **data, int width, int height)
 
 void	put_enemy(t_data **data, int width, int height)
 {
-	mlx_image_t		**image;
+	mlx_texture_t	*tiles;
+	mlx_image_t		*image;
 
-	image = (*data)->tiles->enemy_img;
+	tiles = mlx_load_png("assets/enemy/idle/1.png");
+	image = mlx_texture_to_image((*data)->mlx, tiles);
 	if ((*data)->map[height][width] == 'G')
 	{
-		ft_lstadd_front(&((*data)->enemy_list), ft_lstnew(image[0]));
+		ft_lstadd_front(&((*data)->enemy_list), ft_lstnew(image));
 		((*data)->enemy_list)->x = width;
 		((*data)->enemy_list)->y = height;
 		mlx_image_to_window((*data)->mlx, ((*data)->enemy_list)->position,
 			width * TILE - 14, height * TILE - 16);
 	}
+	mlx_delete_texture(tiles);
 }
 
 void	put_floor(t_data **data, char c, int width, int height)
