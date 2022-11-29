@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 02:46:57 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/29 05:55:11 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/29 08:43:15 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,4 @@ void	destroy_tile_structure(t_data **data)
 
 	image = (*data)->tiles;
 	free(image);
-}
-
-void	destroy_and_free(t_data **data)
-{
-	free_split((*data)->map);
-	free((*data)->map_string);
-	destroy_movements(data);
-	destroy_idle_structure(data);
-	destroy_tile_structure(data);
 }

@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 02:56:00 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/29 05:59:24 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/29 08:56:10 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,18 @@ int	get_collectible_count(char *map)
 	return (count);
 }
 
+void	free_and_delete_image(t_data **data, mlx_image_t *image, t_list *head)
+{
+	t_list	*temp;
+
+	temp = head->next;
+	mlx_delete_image((*data)->mlx, image);
+	free(temp);
+}
+
 void	delete_collectible(t_data **data)
 {
 	t_list	*head;
-	t_list	*temp;
 	int		posy;
 	int		posx;
 
@@ -40,15 +48,14 @@ void	delete_collectible(t_data **data)
 		(*data)->collectible_list = (*data)->collectible_list->next;
 		mlx_delete_image((*data)->mlx, head->position);
 		free(head);
+		return ;
 	}
 	while (head->next)
 	{
 		if (head->next->x == posx && head->next->y == posy)
 		{
-			temp = head->next;
-			mlx_delete_image((*data)->mlx, head->next->position);
+			free_and_delete_image(data, head->next->position, head);
 			head->next = head->next->next;
-			free(temp);
 			return ;
 		}
 		head = head->next;
