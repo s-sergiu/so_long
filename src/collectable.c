@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 02:56:00 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/29 05:39:45 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/29 05:59:24 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ void	delete_collectible(t_data **data)
 	posx = (*data)->player_box->instances[0].x / 32;
 	posy = (*data)->player_box->instances[0].y / 32;
 	head = (*data)->collectible_list;
+	if (head->x == posx && head->y == posy)
+	{
+		(*data)->collectible_list = (*data)->collectible_list->next;
+		mlx_delete_image((*data)->mlx, head->position);
+		free(head);
+	}
 	while (head->next)
 	{
 		if (head->next->x == posx && head->next->y == posy)
@@ -42,19 +48,10 @@ void	delete_collectible(t_data **data)
 			temp = head->next;
 			mlx_delete_image((*data)->mlx, head->next->position);
 			head->next = head->next->next;
-			temp->next = NULL;
 			free(temp);
-			break ;
+			return ;
 		}
 		head = head->next;
-	}
-	head = (*data)->collectible_list;
-	if (head->x == posx && head->y == posy)
-	{
-		(*data)->collectible_list = (*data)->collectible_list->next;
-		mlx_delete_image((*data)->mlx, head->position);
-		head->next = NULL;
-		free(head);
 	}
 }
 
@@ -87,6 +84,5 @@ void	check_if_collected_all(t_data *data)
 		exit_image = data->exit;
 		ft_memcpy(exit_image->pixels, exit_img->pixels, 32 * 32 * 4);
 		mlx_delete_texture(tiles);
-
 	}
 }

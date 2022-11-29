@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 02:53:08 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/28 07:13:43 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/29 06:22:25 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	player_is_on_enemy(t_data **data)
 		if ((enemy->instances[0].x / 32 + 1)
 			== (player[0].x / 32) && (enemy->instances[0].y / 32 + 1)
 			== (player[0].y / 32))
-			exit(1);
+			mlx_close_window((*data)->mlx);
 		current = current->next;
 	}
 	posx = player[0].x / 32;

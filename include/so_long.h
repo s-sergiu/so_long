@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 15:35:24 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/29 05:49:07 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/29 07:53:51 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,5 @@ t_position	*get_player_position(char **map);
 t_position	calculate_coords(t_position *player, t_position *movement);
 t_map		*init_structure(char *map_string);
 void		print_list(t_data **data);
-void		ft_lstclear_no_free(t_list **lst);
 
 #endif

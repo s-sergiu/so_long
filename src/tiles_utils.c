@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 02:46:57 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/29 05:48:47 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/29 05:55:11 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ void	delete_idle_textures(t_data **data)
 
 void	destroy_movements(t_data **data)
 {
-	free((*data)->enemy_movement[0]);		
-	free((*data)->enemy_movement[1]);		
-	free((*data)->enemy_movement[2]);		
-	free((*data)->enemy_movement[3]);		
+	free((*data)->enemy_movement[0]);
+	free((*data)->enemy_movement[1]);
+	free((*data)->enemy_movement[2]);
+	free((*data)->enemy_movement[3]);
 }
 
 void	destroy_idle_structure(t_data **data)
@@ -81,8 +81,6 @@ void	destroy_tile_structure(t_data **data)
 
 void	destroy_and_free(t_data **data)
 {
-	if((*data)->collectible_list)
-		ft_lstclear_no_free(&(*data)->collectible_list);
 	free_split((*data)->map);
 	free((*data)->map_string);
 	destroy_movements(data);
