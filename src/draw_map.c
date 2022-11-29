@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 09:37:33 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/28 04:25:07 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/29 04:40:19 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	add_player_box(t_data **data)
 	(*data)->player_box = mlx_new_image((*data)->mlx, TILE, TILE);
 	ft_memset((*data)->player_box->pixels, 0, TILE * TILE * 4);
 	mlx_image_to_window((*data)->mlx, (*data)->player_box, posx, posy);
+	free(player_pos);
 }
 
 void	draw_enemies(t_data **data)
@@ -82,7 +83,6 @@ void	draw_map(t_data **data)
 	draw_tiles(data);
 	draw_collectables(data);
 	put_door(data);
-	//draw_enemies(data);
 	add_player_box(data);
 	add_player(data);
 }

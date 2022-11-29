@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 02:53:08 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/28 04:30:57 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/28 07:13:43 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,21 @@ int	is_valid_move(t_data *data, t_position *position)
 	if (data->map[posy][posx] != '1')
 		return (1);
 	return (0);
+}
+
+void	init_movements(t_data **data)
+{
+	(*data)->enemy_movement[0] = (t_position *)malloc(sizeof(t_position));
+	(*data)->enemy_movement[1] = (t_position *)malloc(sizeof(t_position));
+	(*data)->enemy_movement[2] = (t_position *)malloc(sizeof(t_position));
+	(*data)->enemy_movement[3] = (t_position *)malloc(sizeof(t_position));
+	(*data)->enemy_movement[4] = NULL;
+	(*data)->enemy_movement[0]->x = 0;
+	(*data)->enemy_movement[0]->y = -1;
+	(*data)->enemy_movement[1]->x = 0;
+	(*data)->enemy_movement[1]->y = 1;
+	(*data)->enemy_movement[2]->x = 1;
+	(*data)->enemy_movement[2]->y = 0;
+	(*data)->enemy_movement[3]->x = -1;
+	(*data)->enemy_movement[3]->y = 0;
 }

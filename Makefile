@@ -1,4 +1,5 @@
-NAME= so_long
+NAME=so_long
+BONUS=bonus
 UNAME_S := $(shell uname -s)
 
 CYAN=\033[0;36m
@@ -16,17 +17,35 @@ OBJ= obj/main.o \
 	 obj/read_map.o \
 	 obj/path_check.o \
 	 obj/errors.o \
+	 obj/loop.o \
+	 obj/draw_map.o \
 	 obj/coord_tools.o \
 	 obj/struct_utils.o \
 	 obj/map_check.o \
-	 obj/draw_map.o \
 	 obj/tiles.o \
-	 obj/old.o \
 	 obj/tiles_utils.o \
-	 obj/enemy.o \
 	 obj/player.o \
 	 obj/collectable.o \
 	 obj/put_tiles.o \
+
+BONUS_OBJ=   obj/bonus/enemy.o \
+		     obj/bonus/loop_bonus.o \
+		     obj/bonus/draw_map.o \
+			 obj/main.o \
+			 obj/wall_check.o \
+			 obj/component_check.o \
+			 obj/filename_check.o \
+			 obj/read_map.o \
+			 obj/path_check.o \
+			 obj/errors.o \
+			 obj/coord_tools.o \
+			 obj/struct_utils.o \
+			 obj/map_check.o \
+			 obj/tiles.o \
+			 obj/tiles_utils.o \
+			 obj/player.o \
+			 obj/collectable.o \
+			 obj/put_tiles.o \
 
 MLX= lib/MLX42/libmlx42.a
 MLX_DIR= lib/MLX42/
@@ -41,10 +60,21 @@ ifeq ($(UNAME_S),Darwin)
 MLX_FLAGS= -lglfw -L ~/.brew/Cellar/glfw/3.3.8/lib
 endif
 
+all: $(NAME)
+
 $(NAME): $(LIBFT) $(OBJ) $(NAME_H) $(MLX)
-	$(CC) $(OBJ) $(GNL) $(LIBFT) $(MLX) $(MLX_FLAGS) -o $(NAME)
+	$(CC) $(OBJ) $(LIBFT) $(MLX) $(MLX_FLAGS) -o $(NAME)
+
+$(BONUS): $(LIBFT) $(BONUS_OBJ) $(NAME_H) $(MLX)
+	$(CC) $(BONUS_OBJ) $(LIBFT) $(MLX) $(MLX_FLAGS) -o $(BONUS)
 
 obj/%.o: src/%.c
+	$(CC) -g -Wall -Wextra -Werror -c $< -o $@
+
+obj/bonus/%.o: src/bonus/%.c
+	@if  [ ! -d obj/bonus ]; then \
+		mkdir -p obj/bonus; \
+	fi
 	$(CC) -g -Wall -Wextra -Werror -c $< -o $@
 
 $(LIBFT): $(LIBFT_DIR)/*.c
@@ -61,16 +91,14 @@ $(MLX): $(MLX_DIR)
 	fi
 	@make -C $(MLX_DIR)
 
-all: $(NAME)
-
 clean:
 	@echo "$(MAGENTA)Cleaning object files.. $(ENDCOLOR)"
-	@$(RM) $(OBJ) $(BONUS_OBJ) $(LIBFT) $(MLX)
+	@$(RM) $(OBJ) $(BONUS_OBJ) $(LIBFT) $(MLX) 
 
 fclean: clean
 	@echo "$(MAGENTA)Cleaning all.. $(ENDCOLOR)"
-	@$(RM) $(NAME)
+	@$(RM) $(NAME) $(BONUS)
 
 re: clean all
 
-.PHONY: bonus all clean fclean re
+.PHONY: all clean fclean re 

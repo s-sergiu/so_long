@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 02:56:00 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/28 04:10:06 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/29 05:39:45 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,29 +27,34 @@ int	get_collectible_count(char *map)
 
 void	delete_collectible(t_data **data)
 {
-	t_list	*current;
 	t_list	*head;
+	t_list	*temp;
 	int		posy;
 	int		posx;
 
 	posx = (*data)->player_box->instances[0].x / 32;
 	posy = (*data)->player_box->instances[0].y / 32;
 	head = (*data)->collectible_list;
-	current = head;
+	while (head->next)
+	{
+		if (head->next->x == posx && head->next->y == posy)
+		{
+			temp = head->next;
+			mlx_delete_image((*data)->mlx, head->next->position);
+			head->next = head->next->next;
+			temp->next = NULL;
+			free(temp);
+			break ;
+		}
+		head = head->next;
+	}
+	head = (*data)->collectible_list;
 	if (head->x == posx && head->y == posy)
 	{
 		(*data)->collectible_list = (*data)->collectible_list->next;
-		mlx_delete_image((*data)->mlx, current->position);
-	}
-	while (current->next)
-	{
-		if (current->next->x == posx && current->next->y == posy)
-		{
-			mlx_delete_image((*data)->mlx, current->next->position);
-			current->next = current->next->next;
-			break ;
-		}
-		current = current->next;
+		mlx_delete_image((*data)->mlx, head->position);
+		head->next = NULL;
+		free(head);
 	}
 }
 
@@ -75,11 +80,13 @@ void	check_if_collected_all(t_data *data)
 	mlx_image_t		*exit_image;
 	mlx_texture_t	*tiles;
 
-	if (ft_lstsize(data->collectible_list) == 0)
+	if (!data->collectible_list)
 	{
 		tiles = mlx_load_png("assets/tiles/other/34.png");
 		exit_img = mlx_texture_to_image(data->mlx, tiles);
 		exit_image = data->exit;
 		ft_memcpy(exit_image->pixels, exit_img->pixels, 32 * 32 * 4);
+		mlx_delete_texture(tiles);
+
 	}
 }

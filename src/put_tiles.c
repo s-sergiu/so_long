@@ -6,7 +6,7 @@
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 02:49:57 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/28 02:50:58 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/11/29 05:40:48 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	add_player(t_data **data)
 	player = (*data)->idle;
 	mlx_image_to_window((*data)->mlx, player->right_idle[0],
 		posx - 16, posy - 24);
+	free(player_pos);
 }
 
 void	put_door(t_data **data)
