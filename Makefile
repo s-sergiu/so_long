@@ -71,15 +71,13 @@ $(BONUS): $(LIBFT) $(BONUS_OBJ) $(NAME_H) $(MLX)
 obj/%.o: src/%.c
 	$(CC) -g -Wall -Wextra -Werror -c $< -o $@
 
-$(BONUS_DIR):
-	@if  [ ! -d obj/bonus ]; then \
-		mkdir -p obj/bonus; \
-	fi
-
-obj/bonus/%.o: $(BONUS_DIR) src/bonus/%.c
+obj/bonus/%.o: src/bonus/%.c
 	$(CC) -g -Wall -Wextra -Werror -c $< -o $@
 
 $(LIBFT): $(LIBFT_DIR)/*.c
+	@if  [ ! -d obj/bonus ]; then \
+		mkdir -p obj/bonus; \
+	fi
 	@if  [ ! -d obj/libft ]; then \
 		mkdir -p obj/libft; \
 	fi
