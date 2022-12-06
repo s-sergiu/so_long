@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_components_check.c                             :+:      :+:    :+:   */
+/*   component_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ssergiu <ssergiu@student.42heilbronn.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 19:10:41 by ssergiu           #+#    #+#             */
-/*   Updated: 2022/11/18 16:08:18 by ssergiu          ###   ########.fr       */
+/*   Updated: 2022/12/06 14:06:08 by ssergiu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,27 @@ int	get_count(char *map, char c)
 	return (count);
 }
 
+int	is_invalid_component(char c)
+{
+	if (c == '1' || c == '0' || c == 'P' || c == 'C' || c == 'E' || c == '\n')
+		return (TRUE);
+	return (FALSE);
+}
+
 int	is_missing_components(char *map)
 {
 	int	player;
 	int	exit;
 	int	collectible;
+	int	i;
 
 	player = get_count(map, 'P');
 	exit = get_count(map, 'E');
 	collectible = get_count(map, 'C');
+	i = -1;
+	while (map[++i])
+		if (is_invalid_component(map[i]) == FALSE)
+			return (TRUE);
 	if (player == 1 && exit == 1 && collectible > 0)
 		return (FALSE);
 	return (TRUE);
